@@ -1,5 +1,5 @@
 <h1 align="center">DATA130051.01 Project 1</h1>
-<center> Wu Jia'ao  21307130203 </center>
+<h3 align="center"> Wu Jia'ao  21307130203 </h3>
 
 ## Contents
 - [Contents](#contents)
@@ -42,9 +42,9 @@ To change the hyperparameters, you can modify the `src/main.py` file directly:
 ```python
 n_epoch = 10
 batch_size = 128
-def create_model(n_neuron_layer=128, learning_rate=1,
-                 decay=0.1, moment=0.8, l2_reg_weight=0.0):
-                 pass
+def create_model(n_neuron_layer=128, learning_rate=1,\
+ decay=0.1, moment=0.8, l2_reg_weight=0.0):
+    pass
 ```
 
 To save the model, you can uncomment the last few lines of the `src/main.py` file:
