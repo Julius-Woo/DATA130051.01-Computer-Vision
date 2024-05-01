@@ -1,13 +1,13 @@
 import numpy as np
 
 
-class InputLayer():
+class InputLayer:
     '''Class for the input layer in a neural network.'''
     def forward(self, inputs, training):
         self.output = inputs
 
 
-class FullyConnectedLayer():
+class FullyConnectedLayer:
     '''Class for one fully connected layer in a neural network.'''
     def __init__(self, n_inputs, n_neurons, l2_reg_weight=0, l2_reg_bias=0):
         self.weights = 0.01 * np.random.randn(n_inputs, n_neurons)
@@ -41,7 +41,7 @@ class FullyConnectedLayer():
         self.biases = biases
 
 
-class ActivationReLU():
+class ActivationReLU:
     '''Class for the ReLU activation function.'''
     def forward(self, inputs, training):
         self.inputs = inputs
@@ -55,7 +55,7 @@ class ActivationReLU():
         return outputs
 
 
-class ActivationSoftmax():
+class ActivationSoftmax:
     '''Class for the softmax activation function.'''
     def forward(self, inputs, training):
         # For numerical stability
