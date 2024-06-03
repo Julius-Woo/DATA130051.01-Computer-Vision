@@ -1,0 +1,1710 @@
+2024/06/02 16:00:31 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.10 (default, Jun  4 2021, 15:09:15) [GCC 7.5.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 1028003349
+    GPU 0: NVIDIA GeForce RTX 4090
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.8, V11.8.89
+    GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    PyTorch: 2.0.0+cu118
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2022.2-Product Build 20220804 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.7.3 (Git Hash 6dbeffbae1f23cbbeae17adb7b5b13f1f37c080e)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 8.7
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wunused-local-typedefs -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=ON, TORCH_VERSION=2.0.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.15.1+cu118
+    OpenCV: 4.9.0
+    MMEngine: 0.10.4
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1028003349
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2024/06/02 16:00:32 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=16)
+backend_args = None
+data_preprocessor = dict(
+    bgr_to_rgb=True,
+    mean=[
+        0,
+        0,
+        0,
+    ],
+    pad_size_divisor=32,
+    std=[
+        255.0,
+        255.0,
+        255.0,
+    ],
+    type='DetDataPreprocessor')
+data_root = 'data/VOCdevkit/'
+dataset_type = 'VOCDataset'
+default_hooks = dict(
+    checkpoint=dict(interval=1, type='CheckpointHook'),
+    logger=dict(interval=200, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(type='DetVisualizationHook'))
+default_scope = 'mmdet'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'none'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        depth=53,
+        init_cfg=dict(checkpoint='open-mmlab://darknet53', type='Pretrained'),
+        out_indices=(
+            3,
+            4,
+            5,
+        ),
+        type='Darknet'),
+    bbox_head=dict(
+        anchor_generator=dict(
+            base_sizes=[
+                [
+                    (
+                        116,
+                        90,
+                    ),
+                    (
+                        156,
+                        198,
+                    ),
+                    (
+                        373,
+                        326,
+                    ),
+                ],
+                [
+                    (
+                        30,
+                        61,
+                    ),
+                    (
+                        62,
+                        45,
+                    ),
+                    (
+                        59,
+                        119,
+                    ),
+                ],
+                [
+                    (
+                        10,
+                        13,
+                    ),
+                    (
+                        16,
+                        30,
+                    ),
+                    (
+                        33,
+                        23,
+                    ),
+                ],
+            ],
+            strides=[
+                32,
+                16,
+                8,
+            ],
+            type='YOLOAnchorGenerator'),
+        bbox_coder=dict(type='YOLOBBoxCoder'),
+        featmap_strides=[
+            32,
+            16,
+            8,
+        ],
+        in_channels=[
+            512,
+            256,
+            128,
+        ],
+        loss_cls=dict(
+            loss_weight=1.0,
+            reduction='sum',
+            type='CrossEntropyLoss',
+            use_sigmoid=True),
+        loss_conf=dict(
+            loss_weight=1.0,
+            reduction='sum',
+            type='CrossEntropyLoss',
+            use_sigmoid=True),
+        loss_wh=dict(loss_weight=2.0, reduction='sum', type='MSELoss'),
+        loss_xy=dict(
+            loss_weight=2.0,
+            reduction='sum',
+            type='CrossEntropyLoss',
+            use_sigmoid=True),
+        num_classes=20,
+        out_channels=[
+            1024,
+            512,
+            256,
+        ],
+        type='YOLOV3Head'),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            0,
+            0,
+            0,
+        ],
+        pad_size_divisor=32,
+        std=[
+            255.0,
+            255.0,
+            255.0,
+        ],
+        type='DetDataPreprocessor'),
+    neck=dict(
+        in_channels=[
+            1024,
+            512,
+            256,
+        ],
+        num_scales=3,
+        out_channels=[
+            512,
+            256,
+            128,
+        ],
+        type='YOLOV3Neck'),
+    test_cfg=dict(
+        conf_thr=0.005,
+        max_per_img=100,
+        min_bbox_size=0,
+        nms=dict(iou_threshold=0.45, type='nms'),
+        nms_pre=1000,
+        score_thr=0.05),
+    train_cfg=dict(
+        assigner=dict(
+            min_pos_iou=0,
+            neg_iou_thr=0.5,
+            pos_iou_thr=0.5,
+            type='GridAssigner')),
+    type='YOLOV3')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=35, norm_type=2),
+    optimizer=dict(lr=0.0001, momentum=0.9, type='SGD', weight_decay=0.0005),
+    type='OptimWrapper')
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=False,
+        end=2000,
+        start_factor=0.0005,
+        type='LinearLR'),
+    dict(by_epoch=True, gamma=0.1, milestones=[
+        2,
+        4,
+        5,
+    ], type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=2,
+    dataset=dict(
+        ann_file='VOC2007/ImageSets/Main/test.txt',
+        backend_args=None,
+        data_prefix=dict(sub_data_root='VOC2007/'),
+        data_root='data/VOCdevkit/',
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(keep_ratio=True, scale=(
+                1000,
+                600,
+            ), type='Resize'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
+        test_mode=True,
+        type='VOCDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(eval_mode='11points', metric='mAP', type='VOCMetric')
+test_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(keep_ratio=True, scale=(
+        1000,
+        600,
+    ), type='Resize'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+        ),
+        type='PackDetInputs'),
+]
+train_cfg = dict(max_epochs=6, type='EpochBasedTrainLoop', val_interval=1)
+train_dataloader = dict(
+    batch_sampler=dict(type='AspectRatioBatchSampler'),
+    batch_size=2,
+    dataset=dict(
+        dataset=dict(
+            datasets=[
+                dict(
+                    ann_file='VOC2007/ImageSets/Main/trainval.txt',
+                    backend_args=None,
+                    data_prefix=dict(sub_data_root='VOC2007/'),
+                    data_root='data/VOCdevkit/',
+                    filter_cfg=dict(
+                        bbox_min_size=32, filter_empty_gt=True, min_size=32),
+                    pipeline=[
+                        dict(backend_args=None, type='LoadImageFromFile'),
+                        dict(type='LoadAnnotations', with_bbox=True),
+                        dict(
+                            keep_ratio=True,
+                            scale=(
+                                1000,
+                                600,
+                            ),
+                            type='Resize'),
+                        dict(prob=0.5, type='RandomFlip'),
+                        dict(type='PackDetInputs'),
+                    ],
+                    type='VOCDataset'),
+                dict(
+                    ann_file='VOC2012/ImageSets/Main/trainval.txt',
+                    backend_args=None,
+                    data_prefix=dict(sub_data_root='VOC2012/'),
+                    data_root='data/VOCdevkit/',
+                    filter_cfg=dict(
+                        bbox_min_size=32, filter_empty_gt=True, min_size=32),
+                    pipeline=[
+                        dict(backend_args=None, type='LoadImageFromFile'),
+                        dict(type='LoadAnnotations', with_bbox=True),
+                        dict(
+                            keep_ratio=True,
+                            scale=(
+                                1000,
+                                600,
+                            ),
+                            type='Resize'),
+                        dict(prob=0.5, type='RandomFlip'),
+                        dict(type='PackDetInputs'),
+                    ],
+                    type='VOCDataset'),
+            ],
+            ignore_keys=[
+                'dataset_type',
+            ],
+            type='ConcatDataset'),
+        times=1,
+        type='RepeatDataset'),
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(keep_ratio=True, scale=(
+        1000,
+        600,
+    ), type='Resize'),
+    dict(prob=0.5, type='RandomFlip'),
+    dict(type='PackDetInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=2,
+    dataset=dict(
+        ann_file='VOC2007/ImageSets/Main/test.txt',
+        backend_args=None,
+        data_prefix=dict(sub_data_root='VOC2007/'),
+        data_root='data/VOCdevkit/',
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(keep_ratio=True, scale=(
+                1000,
+                600,
+            ), type='Resize'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
+        test_mode=True,
+        type='VOCDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(eval_mode='11points', metric='mAP', type='VOCMetric')
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='DetLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+        dict(type='TensorboardVisBackend'),
+    ])
+work_dir = '/root/autodl-tmp/mmdetection_voc/work_dirs/VOC_yolov3'
+
+2024/06/02 16:00:34 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2024/06/02 16:00:34 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2024/06/02 16:00:38 - mmengine - INFO - load model from: open-mmlab://darknet53
+2024/06/02 16:00:38 - mmengine - INFO - Loads checkpoint by openmmlab backend from path: open-mmlab://darknet53
+Name of parameter - Initialization information
+
+backbone.conv1.conv.weight - torch.Size([32, 3, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv1.bn.weight - torch.Size([32]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv1.bn.bias - torch.Size([32]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.conv.conv.weight - torch.Size([64, 32, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.conv.bn.weight - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.conv.bn.bias - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.res0.conv1.conv.weight - torch.Size([32, 64, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.res0.conv1.bn.weight - torch.Size([32]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.res0.conv1.bn.bias - torch.Size([32]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.res0.conv2.conv.weight - torch.Size([64, 32, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.res0.conv2.bn.weight - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block1.res0.conv2.bn.bias - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.conv.conv.weight - torch.Size([128, 64, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.conv.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.conv.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res0.conv1.conv.weight - torch.Size([64, 128, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res0.conv1.bn.weight - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res0.conv1.bn.bias - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res0.conv2.conv.weight - torch.Size([128, 64, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res0.conv2.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res0.conv2.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res1.conv1.conv.weight - torch.Size([64, 128, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res1.conv1.bn.weight - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res1.conv1.bn.bias - torch.Size([64]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res1.conv2.conv.weight - torch.Size([128, 64, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res1.conv2.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block2.res1.conv2.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.conv.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.conv.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.conv.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res0.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res0.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res0.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res0.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res0.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res0.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res1.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res1.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res1.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res1.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res1.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res1.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res2.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res2.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res2.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res2.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res2.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res2.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res3.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res3.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res3.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res3.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res3.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res3.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res4.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res4.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res4.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res4.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res4.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res4.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res5.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res5.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res5.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res5.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res5.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res5.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res6.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res6.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res6.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res6.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res6.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res6.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res7.conv1.conv.weight - torch.Size([128, 256, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res7.conv1.bn.weight - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res7.conv1.bn.bias - torch.Size([128]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res7.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res7.conv2.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block3.res7.conv2.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.conv.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.conv.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.conv.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res0.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res0.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res0.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res0.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res0.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res0.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res1.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res1.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res1.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res1.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res1.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res1.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res2.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res2.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res2.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res2.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res2.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res2.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res3.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res3.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res3.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res3.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res3.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res3.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res4.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res4.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res4.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res4.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res4.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res4.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res5.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res5.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res5.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res5.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res5.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res5.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res6.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res6.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res6.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res6.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res6.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res6.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res7.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res7.conv1.bn.weight - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res7.conv1.bn.bias - torch.Size([256]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res7.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res7.conv2.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block4.res7.conv2.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.conv.conv.weight - torch.Size([1024, 512, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.conv.bn.weight - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.conv.bn.bias - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res0.conv1.conv.weight - torch.Size([512, 1024, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res0.conv1.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res0.conv1.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res0.conv2.conv.weight - torch.Size([1024, 512, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res0.conv2.bn.weight - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res0.conv2.bn.bias - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res1.conv1.conv.weight - torch.Size([512, 1024, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res1.conv1.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res1.conv1.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res1.conv2.conv.weight - torch.Size([1024, 512, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res1.conv2.bn.weight - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res1.conv2.bn.bias - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res2.conv1.conv.weight - torch.Size([512, 1024, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res2.conv1.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res2.conv1.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res2.conv2.conv.weight - torch.Size([1024, 512, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res2.conv2.bn.weight - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res2.conv2.bn.bias - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res3.conv1.conv.weight - torch.Size([512, 1024, 1, 1]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res3.conv1.bn.weight - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res3.conv1.bn.bias - torch.Size([512]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res3.conv2.conv.weight - torch.Size([1024, 512, 3, 3]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res3.conv2.bn.weight - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+backbone.conv_res_block5.res3.conv2.bn.bias - torch.Size([1024]): 
+PretrainedInit: load from open-mmlab://darknet53 
+
+neck.detect1.conv1.conv.weight - torch.Size([512, 1024, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect1.conv1.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv1.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv2.conv.weight - torch.Size([1024, 512, 3, 3]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect1.conv2.bn.weight - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv2.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv3.conv.weight - torch.Size([512, 1024, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect1.conv3.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv3.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv4.conv.weight - torch.Size([1024, 512, 3, 3]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect1.conv4.bn.weight - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv4.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv5.conv.weight - torch.Size([512, 1024, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect1.conv5.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect1.conv5.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.conv1.conv.weight - torch.Size([256, 512, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv1.conv.weight - torch.Size([256, 768, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect2.conv1.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv1.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv2.conv.weight - torch.Size([512, 256, 3, 3]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect2.conv2.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv2.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv3.conv.weight - torch.Size([256, 512, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect2.conv3.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv3.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv4.conv.weight - torch.Size([512, 256, 3, 3]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect2.conv4.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv4.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv5.conv.weight - torch.Size([256, 512, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect2.conv5.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect2.conv5.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.conv2.conv.weight - torch.Size([128, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.conv2.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.conv2.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv1.conv.weight - torch.Size([128, 384, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect3.conv1.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv1.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv2.conv.weight - torch.Size([256, 128, 3, 3]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect3.conv2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv3.conv.weight - torch.Size([128, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect3.conv3.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv3.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv4.conv.weight - torch.Size([256, 128, 3, 3]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect3.conv4.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv4.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv5.conv.weight - torch.Size([128, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in ConvModule  
+
+neck.detect3.conv5.bn.weight - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+neck.detect3.conv5.bn.bias - torch.Size([128]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+bbox_head.convs_bridge.0.conv.weight - torch.Size([1024, 512, 3, 3]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_bridge.0.bn.weight - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+bbox_head.convs_bridge.0.bn.bias - torch.Size([1024]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+bbox_head.convs_bridge.1.conv.weight - torch.Size([512, 256, 3, 3]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_bridge.1.bn.weight - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+bbox_head.convs_bridge.1.bn.bias - torch.Size([512]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+bbox_head.convs_bridge.2.conv.weight - torch.Size([256, 128, 3, 3]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_bridge.2.bn.weight - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+bbox_head.convs_bridge.2.bn.bias - torch.Size([256]): 
+The value is the same before and after calling `init_weights` of YOLOV3  
+
+bbox_head.convs_pred.0.weight - torch.Size([75, 1024, 1, 1]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_pred.0.bias - torch.Size([75]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_pred.1.weight - torch.Size([75, 512, 1, 1]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_pred.1.bias - torch.Size([75]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_pred.2.weight - torch.Size([75, 256, 1, 1]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+
+bbox_head.convs_pred.2.bias - torch.Size([75]): 
+Initialized by user-defined `init_weights` in YOLOV3Head  
+2024/06/02 16:00:38 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/06/02 16:00:38 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/06/02 16:00:38 - mmengine - INFO - Checkpoints will be saved to /root/autodl-tmp/mmdetection_voc/work_dirs/VOC_yolov3.
+2024/06/02 16:00:54 - mmengine - INFO - Epoch(train) [1][ 200/8276]  lr: 1.0000e-05  eta: 1:06:16  time: 0.0712  data_time: 0.0045  memory: 3222  grad_norm: 1111.5718  loss: 214.4814  loss_cls: 22.5609  loss_conf: 175.0729  loss_xy: 12.9988  loss_wh: 3.8487
+2024/06/02 16:01:08 - mmengine - INFO - Epoch(train) [1][ 400/8276]  lr: 2.0000e-05  eta: 1:00:47  time: 0.0678  data_time: 0.0044  memory: 3222  grad_norm: 1002.6831  loss: 141.6807  loss_cls: 21.7757  loss_conf: 103.9414  loss_xy: 12.7753  loss_wh: 3.1883
+2024/06/02 16:01:21 - mmengine - INFO - Epoch(train) [1][ 600/8276]  lr: 3.0000e-05  eta: 0:58:33  time: 0.0685  data_time: 0.0045  memory: 3197  grad_norm: 1137.2479  loss: 119.5360  loss_cls: 25.8596  loss_conf: 74.8933  loss_xy: 15.2019  loss_wh: 3.5811
+2024/06/02 16:01:34 - mmengine - INFO - Epoch(train) [1][ 800/8276]  lr: 4.0000e-05  eta: 0:57:05  time: 0.0656  data_time: 0.0046  memory: 3222  grad_norm: 931.3008  loss: 97.5257  loss_cls: 23.2390  loss_conf: 57.6242  loss_xy: 13.7769  loss_wh: 2.8857
+2024/06/02 16:01:47 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:01:47 - mmengine - INFO - Epoch(train) [1][1000/8276]  lr: 5.0000e-05  eta: 0:56:12  time: 0.0668  data_time: 0.0045  memory: 3222  grad_norm: 883.6171  loss: 80.0188  loss_cls: 20.2395  loss_conf: 44.8454  loss_xy: 12.1677  loss_wh: 2.7662
+2024/06/02 16:02:01 - mmengine - INFO - Epoch(train) [1][1200/8276]  lr: 6.0000e-05  eta: 0:55:32  time: 0.0662  data_time: 0.0044  memory: 3222  grad_norm: 675.6049  loss: 76.1330  loss_cls: 20.4026  loss_conf: 40.4220  loss_xy: 12.7895  loss_wh: 2.5189
+2024/06/02 16:02:14 - mmengine - INFO - Epoch(train) [1][1400/8276]  lr: 7.0000e-05  eta: 0:55:03  time: 0.0658  data_time: 0.0044  memory: 3222  grad_norm: 632.6936  loss: 71.7509  loss_cls: 19.1820  loss_conf: 37.4894  loss_xy: 12.7115  loss_wh: 2.3681
+2024/06/02 16:02:27 - mmengine - INFO - Epoch(train) [1][1600/8276]  lr: 8.0000e-05  eta: 0:54:45  time: 0.0692  data_time: 0.0045  memory: 3222  grad_norm: 619.9002  loss: 76.6247  loss_cls: 21.2958  loss_conf: 38.2169  loss_xy: 14.4467  loss_wh: 2.6653
+2024/06/02 16:02:40 - mmengine - INFO - Epoch(train) [1][1800/8276]  lr: 9.0000e-05  eta: 0:54:13  time: 0.0645  data_time: 0.0044  memory: 3222  grad_norm: 558.0324  loss: 65.7160  loss_cls: 17.3514  loss_conf: 33.3855  loss_xy: 12.9609  loss_wh: 2.0182
+2024/06/02 16:02:54 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:02:54 - mmengine - INFO - Epoch(train) [1][2000/8276]  lr: 1.0000e-04  eta: 0:53:50  time: 0.0671  data_time: 0.0045  memory: 3222  grad_norm: 609.3406  loss: 77.5303  loss_cls: 21.5097  loss_conf: 38.0945  loss_xy: 15.6265  loss_wh: 2.2995
+2024/06/02 16:03:07 - mmengine - INFO - Epoch(train) [1][2200/8276]  lr: 1.0000e-04  eta: 0:53:35  time: 0.0685  data_time: 0.0046  memory: 3222  grad_norm: 591.3263  loss: 68.1965  loss_cls: 18.7822  loss_conf: 32.8658  loss_xy: 14.2631  loss_wh: 2.2853
+2024/06/02 16:03:20 - mmengine - INFO - Epoch(train) [1][2400/8276]  lr: 1.0000e-04  eta: 0:53:17  time: 0.0650  data_time: 0.0044  memory: 3222  grad_norm: 521.6968  loss: 64.1961  loss_cls: 18.4983  loss_conf: 30.1217  loss_xy: 13.9548  loss_wh: 1.6213
+2024/06/02 16:03:34 - mmengine - INFO - Epoch(train) [1][2600/8276]  lr: 1.0000e-04  eta: 0:52:58  time: 0.0697  data_time: 0.0045  memory: 3222  grad_norm: 530.2893  loss: 58.8124  loss_cls: 15.7141  loss_conf: 28.3444  loss_xy: 13.1715  loss_wh: 1.5824
+2024/06/02 16:03:47 - mmengine - INFO - Epoch(train) [1][2800/8276]  lr: 1.0000e-04  eta: 0:52:40  time: 0.0657  data_time: 0.0044  memory: 3222  grad_norm: 527.4014  loss: 55.5138  loss_cls: 15.0779  loss_conf: 26.5935  loss_xy: 12.2932  loss_wh: 1.5492
+2024/06/02 16:04:00 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:04:00 - mmengine - INFO - Epoch(train) [1][3000/8276]  lr: 1.0000e-04  eta: 0:52:15  time: 0.0628  data_time: 0.0040  memory: 3222  grad_norm: 538.6600  loss: 55.4117  loss_cls: 14.8843  loss_conf: 25.9996  loss_xy: 12.8794  loss_wh: 1.6484
+2024/06/02 16:04:13 - mmengine - INFO - Epoch(train) [1][3200/8276]  lr: 1.0000e-04  eta: 0:51:57  time: 0.0669  data_time: 0.0045  memory: 3197  grad_norm: 561.0092  loss: 56.5620  loss_cls: 16.4384  loss_conf: 25.9639  loss_xy: 12.4918  loss_wh: 1.6680
+2024/06/02 16:04:26 - mmengine - INFO - Epoch(train) [1][3400/8276]  lr: 1.0000e-04  eta: 0:51:39  time: 0.0650  data_time: 0.0044  memory: 3222  grad_norm: 500.0226  loss: 48.9974  loss_cls: 13.4396  loss_conf: 22.4268  loss_xy: 11.7413  loss_wh: 1.3897
+2024/06/02 16:04:39 - mmengine - INFO - Epoch(train) [1][3600/8276]  lr: 1.0000e-04  eta: 0:51:24  time: 0.0661  data_time: 0.0045  memory: 3222  grad_norm: 515.5525  loss: 49.7955  loss_cls: 13.7655  loss_conf: 23.0369  loss_xy: 11.6922  loss_wh: 1.3009
+2024/06/02 16:04:53 - mmengine - INFO - Epoch(train) [1][3800/8276]  lr: 1.0000e-04  eta: 0:51:11  time: 0.0647  data_time: 0.0044  memory: 3222  grad_norm: 571.0497  loss: 55.4450  loss_cls: 14.4929  loss_conf: 26.1835  loss_xy: 13.0777  loss_wh: 1.6909
+2024/06/02 16:05:06 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:05:06 - mmengine - INFO - Epoch(train) [1][4000/8276]  lr: 1.0000e-04  eta: 0:50:57  time: 0.0695  data_time: 0.0045  memory: 3197  grad_norm: 555.7444  loss: 49.6035  loss_cls: 14.2812  loss_conf: 22.0258  loss_xy: 12.0825  loss_wh: 1.2139
+2024/06/02 16:05:19 - mmengine - INFO - Epoch(train) [1][4200/8276]  lr: 1.0000e-04  eta: 0:50:40  time: 0.0647  data_time: 0.0043  memory: 3222  grad_norm: 500.9127  loss: 44.6283  loss_cls: 12.0062  loss_conf: 20.9592  loss_xy: 10.5601  loss_wh: 1.1029
+2024/06/02 16:05:32 - mmengine - INFO - Epoch(train) [1][4400/8276]  lr: 1.0000e-04  eta: 0:50:25  time: 0.0651  data_time: 0.0044  memory: 3222  grad_norm: 589.7227  loss: 57.1239  loss_cls: 16.4395  loss_conf: 25.7939  loss_xy: 13.1905  loss_wh: 1.7000
+2024/06/02 16:05:45 - mmengine - INFO - Epoch(train) [1][4600/8276]  lr: 1.0000e-04  eta: 0:50:09  time: 0.0625  data_time: 0.0041  memory: 3222  grad_norm: 476.2306  loss: 42.6274  loss_cls: 10.7555  loss_conf: 19.9217  loss_xy: 10.8252  loss_wh: 1.1250
+2024/06/02 16:05:58 - mmengine - INFO - Epoch(train) [1][4800/8276]  lr: 1.0000e-04  eta: 0:49:49  time: 0.0633  data_time: 0.0040  memory: 3197  grad_norm: 522.6838  loss: 45.2617  loss_cls: 12.2534  loss_conf: 20.8149  loss_xy: 11.1910  loss_wh: 1.0025
+2024/06/02 16:06:11 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:06:11 - mmengine - INFO - Epoch(train) [1][5000/8276]  lr: 1.0000e-04  eta: 0:49:30  time: 0.0629  data_time: 0.0042  memory: 3222  grad_norm: 526.1254  loss: 48.5270  loss_cls: 13.0553  loss_conf: 21.9508  loss_xy: 12.3261  loss_wh: 1.1948
+2024/06/02 16:06:24 - mmengine - INFO - Epoch(train) [1][5200/8276]  lr: 1.0000e-04  eta: 0:49:14  time: 0.0632  data_time: 0.0041  memory: 3222  grad_norm: 506.1425  loss: 42.2490  loss_cls: 11.2089  loss_conf: 18.9748  loss_xy: 10.9726  loss_wh: 1.0928
+2024/06/02 16:06:37 - mmengine - INFO - Epoch(train) [1][5400/8276]  lr: 1.0000e-04  eta: 0:48:58  time: 0.0633  data_time: 0.0039  memory: 3222  grad_norm: 557.9700  loss: 52.0392  loss_cls: 13.2843  loss_conf: 24.2671  loss_xy: 13.2115  loss_wh: 1.2764
+2024/06/02 16:06:49 - mmengine - INFO - Epoch(train) [1][5600/8276]  lr: 1.0000e-04  eta: 0:48:39  time: 0.0640  data_time: 0.0038  memory: 3222  grad_norm: 536.7515  loss: 44.5597  loss_cls: 11.9393  loss_conf: 20.0228  loss_xy: 11.5041  loss_wh: 1.0935
+2024/06/02 16:07:02 - mmengine - INFO - Epoch(train) [1][5800/8276]  lr: 1.0000e-04  eta: 0:48:23  time: 0.0656  data_time: 0.0044  memory: 3222  grad_norm: 499.0464  loss: 41.1401  loss_cls: 9.7311  loss_conf: 19.6741  loss_xy: 10.6327  loss_wh: 1.1022
+2024/06/02 16:07:15 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:07:15 - mmengine - INFO - Epoch(train) [1][6000/8276]  lr: 1.0000e-04  eta: 0:48:09  time: 0.0647  data_time: 0.0046  memory: 3222  grad_norm: 632.2075  loss: 54.6243  loss_cls: 14.8244  loss_conf: 25.4998  loss_xy: 13.0992  loss_wh: 1.2009
+2024/06/02 16:07:28 - mmengine - INFO - Epoch(train) [1][6200/8276]  lr: 1.0000e-04  eta: 0:47:54  time: 0.0632  data_time: 0.0041  memory: 3222  grad_norm: 506.9420  loss: 43.4245  loss_cls: 11.2082  loss_conf: 19.7053  loss_xy: 11.6268  loss_wh: 0.8842
+2024/06/02 16:07:41 - mmengine - INFO - Epoch(train) [1][6400/8276]  lr: 1.0000e-04  eta: 0:47:39  time: 0.0668  data_time: 0.0044  memory: 3222  grad_norm: 609.2258  loss: 54.0941  loss_cls: 12.7507  loss_conf: 25.7519  loss_xy: 14.2649  loss_wh: 1.3265
+2024/06/02 16:07:54 - mmengine - INFO - Epoch(train) [1][6600/8276]  lr: 1.0000e-04  eta: 0:47:26  time: 0.0654  data_time: 0.0044  memory: 3222  grad_norm: 546.0664  loss: 44.3611  loss_cls: 11.5097  loss_conf: 19.9692  loss_xy: 11.9064  loss_wh: 0.9759
+2024/06/02 16:08:08 - mmengine - INFO - Epoch(train) [1][6800/8276]  lr: 1.0000e-04  eta: 0:47:13  time: 0.0653  data_time: 0.0043  memory: 3222  grad_norm: 606.9775  loss: 52.5177  loss_cls: 14.3034  loss_conf: 23.4521  loss_xy: 13.5269  loss_wh: 1.2354
+2024/06/02 16:08:21 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:08:21 - mmengine - INFO - Epoch(train) [1][7000/8276]  lr: 1.0000e-04  eta: 0:47:00  time: 0.0674  data_time: 0.0046  memory: 3222  grad_norm: 541.9584  loss: 44.3537  loss_cls: 10.6313  loss_conf: 21.0154  loss_xy: 11.6989  loss_wh: 1.0081
+2024/06/02 16:08:34 - mmengine - INFO - Epoch(train) [1][7200/8276]  lr: 1.0000e-04  eta: 0:46:48  time: 0.0678  data_time: 0.0045  memory: 3222  grad_norm: 576.9286  loss: 44.7532  loss_cls: 10.8441  loss_conf: 21.1658  loss_xy: 11.5827  loss_wh: 1.1606
+2024/06/02 16:08:48 - mmengine - INFO - Epoch(train) [1][7400/8276]  lr: 1.0000e-04  eta: 0:46:35  time: 0.0663  data_time: 0.0044  memory: 3222  grad_norm: 545.0334  loss: 43.0851  loss_cls: 10.3579  loss_conf: 20.2328  loss_xy: 11.4342  loss_wh: 1.0602
+2024/06/02 16:09:01 - mmengine - INFO - Epoch(train) [1][7600/8276]  lr: 1.0000e-04  eta: 0:46:21  time: 0.0646  data_time: 0.0044  memory: 3222  grad_norm: 543.9546  loss: 43.0610  loss_cls: 10.2579  loss_conf: 20.1409  loss_xy: 11.6154  loss_wh: 1.0468
+2024/06/02 16:09:13 - mmengine - INFO - Epoch(train) [1][7800/8276]  lr: 1.0000e-04  eta: 0:46:05  time: 0.0635  data_time: 0.0039  memory: 3197  grad_norm: 605.0414  loss: 53.0973  loss_cls: 14.6735  loss_conf: 22.9984  loss_xy: 14.1699  loss_wh: 1.2555
+2024/06/02 16:09:27 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:09:27 - mmengine - INFO - Epoch(train) [1][8000/8276]  lr: 1.0000e-04  eta: 0:45:52  time: 0.0661  data_time: 0.0044  memory: 3222  grad_norm: 508.9396  loss: 38.9656  loss_cls: 10.4776  loss_conf: 16.9858  loss_xy: 10.6227  loss_wh: 0.8795
+2024/06/02 16:09:40 - mmengine - INFO - Epoch(train) [1][8200/8276]  lr: 1.0000e-04  eta: 0:45:38  time: 0.0655  data_time: 0.0044  memory: 3222  grad_norm: 515.1449  loss: 38.6784  loss_cls: 10.2185  loss_conf: 17.0141  loss_xy: 10.7317  loss_wh: 0.7141
+2024/06/02 16:09:45 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:09:45 - mmengine - INFO - Saving checkpoint at 1 epochs
+2024/06/02 16:09:53 - mmengine - INFO - Epoch(val) [1][ 200/2476]    eta: 0:01:08  time: 0.0259  data_time: 0.0036  memory: 3222  
+2024/06/02 16:09:59 - mmengine - INFO - Epoch(val) [1][ 400/2476]    eta: 0:00:59  time: 0.0308  data_time: 0.0041  memory: 1133  
+2024/06/02 16:10:04 - mmengine - INFO - Epoch(val) [1][ 600/2476]    eta: 0:00:52  time: 0.0241  data_time: 0.0037  memory: 1071  
+2024/06/02 16:10:09 - mmengine - INFO - Epoch(val) [1][ 800/2476]    eta: 0:00:46  time: 0.0253  data_time: 0.0033  memory: 1133  
+2024/06/02 16:10:14 - mmengine - INFO - Epoch(val) [1][1000/2476]    eta: 0:00:39  time: 0.0268  data_time: 0.0035  memory: 1133  
+2024/06/02 16:10:19 - mmengine - INFO - Epoch(val) [1][1200/2476]    eta: 0:00:33  time: 0.0278  data_time: 0.0039  memory: 1071  
+2024/06/02 16:10:24 - mmengine - INFO - Epoch(val) [1][1400/2476]    eta: 0:00:28  time: 0.0242  data_time: 0.0034  memory: 1133  
+2024/06/02 16:10:28 - mmengine - INFO - Epoch(val) [1][1600/2476]    eta: 0:00:22  time: 0.0233  data_time: 0.0035  memory: 1133  
+2024/06/02 16:10:33 - mmengine - INFO - Epoch(val) [1][1800/2476]    eta: 0:00:17  time: 0.0242  data_time: 0.0033  memory: 1071  
+2024/06/02 16:10:38 - mmengine - INFO - Epoch(val) [1][2000/2476]    eta: 0:00:12  time: 0.0247  data_time: 0.0039  memory: 1133  
+2024/06/02 16:10:43 - mmengine - INFO - Epoch(val) [1][2200/2476]    eta: 0:00:06  time: 0.0220  data_time: 0.0034  memory: 1112  
+2024/06/02 16:10:47 - mmengine - INFO - Epoch(val) [1][2400/2476]    eta: 0:00:01  time: 0.0221  data_time: 0.0033  memory: 1133  
+2024/06/02 16:10:49 - mmengine - INFO - 
+---------------iou_thr: 0.5---------------
+2024/06/02 16:10:52 - mmengine - INFO - 
++-------------+------+-------+--------+-------+
+| class       | gts  | dets  | recall | ap    |
++-------------+------+-------+--------+-------+
+| aeroplane   | 285  | 9090  | 0.544  | 0.030 |
+| bicycle     | 337  | 10695 | 0.739  | 0.199 |
+| bird        | 459  | 10314 | 0.706  | 0.087 |
+| boat        | 263  | 7366  | 0.426  | 0.009 |
+| bottle      | 469  | 3981  | 0.239  | 0.010 |
+| bus         | 213  | 3083  | 0.690  | 0.175 |
+| car         | 1201 | 21653 | 0.726  | 0.380 |
+| cat         | 358  | 4685  | 0.813  | 0.279 |
+| chair       | 756  | 32034 | 0.758  | 0.281 |
+| cow         | 244  | 2600  | 0.574  | 0.071 |
+| diningtable | 206  | 6329  | 0.602  | 0.065 |
+| dog         | 489  | 8233  | 0.863  | 0.211 |
+| horse       | 348  | 4670  | 0.793  | 0.277 |
+| motorbike   | 325  | 8130  | 0.563  | 0.123 |
+| person      | 4528 | 39709 | 0.814  | 0.580 |
+| pottedplant | 480  | 6321  | 0.133  | 0.002 |
+| sheep       | 242  | 4465  | 0.583  | 0.080 |
+| sofa        | 239  | 7973  | 0.753  | 0.169 |
+| train       | 282  | 5522  | 0.645  | 0.096 |
+| tvmonitor   | 308  | 9755  | 0.695  | 0.212 |
++-------------+------+-------+--------+-------+
+| mAP         |      |       |        | 0.167 |
++-------------+------+-------+--------+-------+
+2024/06/02 16:10:52 - mmengine - INFO - Epoch(val) [1][2476/2476]    pascal_voc/mAP: 0.1668  pascal_voc/AP50: 0.1670  data_time: 0.0037  time: 0.0250
+2024/06/02 16:11:05 - mmengine - INFO - Epoch(train) [2][ 200/8276]  lr: 1.0000e-04  eta: 0:45:19  time: 0.0650  data_time: 0.0043  memory: 3222  grad_norm: 563.1825  loss: 45.1561  loss_cls: 12.1109  loss_conf: 20.2286  loss_xy: 11.8079  loss_wh: 1.0087
+2024/06/02 16:11:18 - mmengine - INFO - Epoch(train) [2][ 400/8276]  lr: 1.0000e-04  eta: 0:45:06  time: 0.0662  data_time: 0.0047  memory: 3222  grad_norm: 634.2794  loss: 51.3584  loss_cls: 13.2733  loss_conf: 22.3951  loss_xy: 14.3946  loss_wh: 1.2953
+2024/06/02 16:11:31 - mmengine - INFO - Epoch(train) [2][ 600/8276]  lr: 1.0000e-04  eta: 0:44:52  time: 0.0664  data_time: 0.0047  memory: 3222  grad_norm: 588.1359  loss: 45.5038  loss_cls: 10.5032  loss_conf: 21.0687  loss_xy: 12.7241  loss_wh: 1.2078
+2024/06/02 16:11:39 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:11:45 - mmengine - INFO - Epoch(train) [2][ 800/8276]  lr: 1.0000e-04  eta: 0:44:40  time: 0.0676  data_time: 0.0046  memory: 3222  grad_norm: 620.1878  loss: 49.7451  loss_cls: 12.6396  loss_conf: 23.2458  loss_xy: 12.7932  loss_wh: 1.0665
+2024/06/02 16:11:58 - mmengine - INFO - Epoch(train) [2][1000/8276]  lr: 1.0000e-04  eta: 0:44:26  time: 0.0666  data_time: 0.0047  memory: 3222  grad_norm: 607.3091  loss: 45.8566  loss_cls: 11.3230  loss_conf: 20.7079  loss_xy: 12.6539  loss_wh: 1.1717
+2024/06/02 16:12:11 - mmengine - INFO - Epoch(train) [2][1200/8276]  lr: 1.0000e-04  eta: 0:44:14  time: 0.0680  data_time: 0.0047  memory: 3197  grad_norm: 615.7220  loss: 51.7168  loss_cls: 13.5048  loss_conf: 23.3253  loss_xy: 13.7095  loss_wh: 1.1772
+2024/06/02 16:12:24 - mmengine - INFO - Epoch(train) [2][1400/8276]  lr: 1.0000e-04  eta: 0:44:01  time: 0.0662  data_time: 0.0046  memory: 3222  grad_norm: 549.0311  loss: 43.1209  loss_cls: 10.8510  loss_conf: 19.3177  loss_xy: 11.9417  loss_wh: 1.0105
+2024/06/02 16:12:38 - mmengine - INFO - Epoch(train) [2][1600/8276]  lr: 1.0000e-04  eta: 0:43:47  time: 0.0651  data_time: 0.0044  memory: 3222  grad_norm: 600.5120  loss: 42.1297  loss_cls: 11.1179  loss_conf: 18.5485  loss_xy: 11.4632  loss_wh: 1.0000
+2024/06/02 16:12:46 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:12:51 - mmengine - INFO - Epoch(train) [2][1800/8276]  lr: 1.0000e-04  eta: 0:43:34  time: 0.0663  data_time: 0.0046  memory: 3222  grad_norm: 649.7025  loss: 53.7550  loss_cls: 13.3805  loss_conf: 24.5529  loss_xy: 14.3399  loss_wh: 1.4817
+2024/06/02 16:13:04 - mmengine - INFO - Epoch(train) [2][2000/8276]  lr: 1.0000e-04  eta: 0:43:21  time: 0.0633  data_time: 0.0043  memory: 3222  grad_norm: 598.1526  loss: 44.1392  loss_cls: 11.1174  loss_conf: 19.9269  loss_xy: 11.9460  loss_wh: 1.1489
+2024/06/02 16:13:17 - mmengine - INFO - Epoch(train) [2][2200/8276]  lr: 1.0000e-04  eta: 0:43:07  time: 0.0650  data_time: 0.0045  memory: 3222  grad_norm: 644.8382  loss: 46.4106  loss_cls: 11.0546  loss_conf: 21.3455  loss_xy: 12.9760  loss_wh: 1.0345
+2024/06/02 16:13:30 - mmengine - INFO - Epoch(train) [2][2400/8276]  lr: 1.0000e-04  eta: 0:42:52  time: 0.0651  data_time: 0.0045  memory: 3197  grad_norm: 589.4963  loss: 42.3954  loss_cls: 10.9504  loss_conf: 18.2394  loss_xy: 12.2905  loss_wh: 0.9151
+2024/06/02 16:13:43 - mmengine - INFO - Epoch(train) [2][2600/8276]  lr: 1.0000e-04  eta: 0:42:38  time: 0.0642  data_time: 0.0042  memory: 3222  grad_norm: 541.8404  loss: 39.2142  loss_cls: 9.7736  loss_conf: 17.2184  loss_xy: 11.3331  loss_wh: 0.8892
+2024/06/02 16:13:51 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:13:56 - mmengine - INFO - Epoch(train) [2][2800/8276]  lr: 1.0000e-04  eta: 0:42:24  time: 0.0627  data_time: 0.0041  memory: 3222  grad_norm: 603.2878  loss: 43.5970  loss_cls: 10.3800  loss_conf: 19.4640  loss_xy: 12.5905  loss_wh: 1.1624
+2024/06/02 16:14:09 - mmengine - INFO - Epoch(train) [2][3000/8276]  lr: 1.0000e-04  eta: 0:42:10  time: 0.0659  data_time: 0.0044  memory: 3222  grad_norm: 662.7529  loss: 50.8528  loss_cls: 11.3531  loss_conf: 24.0587  loss_xy: 14.1035  loss_wh: 1.3375
+2024/06/02 16:14:22 - mmengine - INFO - Epoch(train) [2][3200/8276]  lr: 1.0000e-04  eta: 0:41:58  time: 0.0675  data_time: 0.0048  memory: 3222  grad_norm: 634.2467  loss: 47.2419  loss_cls: 11.9230  loss_conf: 21.0671  loss_xy: 13.2740  loss_wh: 0.9778
+2024/06/02 16:14:35 - mmengine - INFO - Epoch(train) [2][3400/8276]  lr: 1.0000e-04  eta: 0:41:45  time: 0.0659  data_time: 0.0045  memory: 3222  grad_norm: 625.6379  loss: 48.1730  loss_cls: 11.0345  loss_conf: 22.5541  loss_xy: 13.3874  loss_wh: 1.1970
+2024/06/02 16:14:49 - mmengine - INFO - Epoch(train) [2][3600/8276]  lr: 1.0000e-04  eta: 0:41:32  time: 0.0661  data_time: 0.0046  memory: 3222  grad_norm: 601.1533  loss: 39.8600  loss_cls: 10.4174  loss_conf: 17.2499  loss_xy: 11.3974  loss_wh: 0.7954
+2024/06/02 16:14:57 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:15:01 - mmengine - INFO - Epoch(train) [2][3800/8276]  lr: 1.0000e-04  eta: 0:41:17  time: 0.0643  data_time: 0.0043  memory: 3222  grad_norm: 618.8199  loss: 47.9870  loss_cls: 11.5551  loss_conf: 21.7487  loss_xy: 13.4193  loss_wh: 1.2639
+2024/06/02 16:15:15 - mmengine - INFO - Epoch(train) [2][4000/8276]  lr: 1.0000e-04  eta: 0:41:05  time: 0.0662  data_time: 0.0046  memory: 3222  grad_norm: 596.9120  loss: 43.9252  loss_cls: 10.0875  loss_conf: 20.6988  loss_xy: 12.2606  loss_wh: 0.8783
+2024/06/02 16:15:28 - mmengine - INFO - Epoch(train) [2][4200/8276]  lr: 1.0000e-04  eta: 0:40:52  time: 0.0657  data_time: 0.0043  memory: 3222  grad_norm: 634.9861  loss: 40.1298  loss_cls: 9.4311  loss_conf: 18.0379  loss_xy: 11.8641  loss_wh: 0.7967
+2024/06/02 16:15:41 - mmengine - INFO - Epoch(train) [2][4400/8276]  lr: 1.0000e-04  eta: 0:40:38  time: 0.0646  data_time: 0.0042  memory: 3222  grad_norm: 587.3683  loss: 41.7477  loss_cls: 10.5676  loss_conf: 18.6225  loss_xy: 11.7002  loss_wh: 0.8574
+2024/06/02 16:15:54 - mmengine - INFO - Epoch(train) [2][4600/8276]  lr: 1.0000e-04  eta: 0:40:25  time: 0.0656  data_time: 0.0047  memory: 3222  grad_norm: 628.6884  loss: 48.1693  loss_cls: 11.6902  loss_conf: 21.6008  loss_xy: 13.7827  loss_wh: 1.0956
+2024/06/02 16:16:03 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:16:07 - mmengine - INFO - Epoch(train) [2][4800/8276]  lr: 1.0000e-04  eta: 0:40:11  time: 0.0652  data_time: 0.0046  memory: 3197  grad_norm: 692.8425  loss: 47.6977  loss_cls: 9.9991  loss_conf: 22.7287  loss_xy: 14.0066  loss_wh: 0.9633
+2024/06/02 16:16:21 - mmengine - INFO - Epoch(train) [2][5000/8276]  lr: 1.0000e-04  eta: 0:39:58  time: 0.0681  data_time: 0.0046  memory: 3222  grad_norm: 626.5708  loss: 46.2359  loss_cls: 10.3817  loss_conf: 21.7058  loss_xy: 13.0588  loss_wh: 1.0896
+2024/06/02 16:16:34 - mmengine - INFO - Epoch(train) [2][5200/8276]  lr: 1.0000e-04  eta: 0:39:46  time: 0.0668  data_time: 0.0046  memory: 3222  grad_norm: 610.8437  loss: 44.8173  loss_cls: 10.3800  loss_conf: 20.9015  loss_xy: 12.5522  loss_wh: 0.9837
+2024/06/02 16:16:48 - mmengine - INFO - Epoch(train) [2][5400/8276]  lr: 1.0000e-04  eta: 0:39:33  time: 0.0685  data_time: 0.0046  memory: 3222  grad_norm: 595.4113  loss: 42.9946  loss_cls: 10.3927  loss_conf: 19.4569  loss_xy: 12.3650  loss_wh: 0.7801
+2024/06/02 16:17:01 - mmengine - INFO - Epoch(train) [2][5600/8276]  lr: 1.0000e-04  eta: 0:39:21  time: 0.0673  data_time: 0.0047  memory: 3222  grad_norm: 556.7225  loss: 39.2067  loss_cls: 9.4810  loss_conf: 18.2987  loss_xy: 10.6215  loss_wh: 0.8056
+2024/06/02 16:17:09 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:17:14 - mmengine - INFO - Epoch(train) [2][5800/8276]  lr: 1.0000e-04  eta: 0:39:07  time: 0.0643  data_time: 0.0042  memory: 3222  grad_norm: 560.0212  loss: 38.7417  loss_cls: 8.7525  loss_conf: 17.7837  loss_xy: 11.3225  loss_wh: 0.8830
+2024/06/02 16:17:27 - mmengine - INFO - Epoch(train) [2][6000/8276]  lr: 1.0000e-04  eta: 0:38:53  time: 0.0652  data_time: 0.0044  memory: 3222  grad_norm: 585.6708  loss: 43.7019  loss_cls: 9.9152  loss_conf: 20.4161  loss_xy: 12.2477  loss_wh: 1.1229
+2024/06/02 16:17:40 - mmengine - INFO - Epoch(train) [2][6200/8276]  lr: 1.0000e-04  eta: 0:38:40  time: 0.0667  data_time: 0.0047  memory: 3197  grad_norm: 694.3096  loss: 55.6696  loss_cls: 13.9154  loss_conf: 25.1072  loss_xy: 15.3559  loss_wh: 1.2911
+2024/06/02 16:17:53 - mmengine - INFO - Epoch(train) [2][6400/8276]  lr: 1.0000e-04  eta: 0:38:26  time: 0.0662  data_time: 0.0045  memory: 3197  grad_norm: 630.9975  loss: 44.8057  loss_cls: 9.5791  loss_conf: 20.5401  loss_xy: 13.6659  loss_wh: 1.0205
+2024/06/02 16:18:07 - mmengine - INFO - Epoch(train) [2][6600/8276]  lr: 1.0000e-04  eta: 0:38:14  time: 0.0675  data_time: 0.0046  memory: 3222  grad_norm: 597.0058  loss: 42.9343  loss_cls: 9.1754  loss_conf: 20.0849  loss_xy: 12.6414  loss_wh: 1.0327
+2024/06/02 16:18:15 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:18:20 - mmengine - INFO - Epoch(train) [2][6800/8276]  lr: 1.0000e-04  eta: 0:38:01  time: 0.0676  data_time: 0.0050  memory: 3222  grad_norm: 585.4919  loss: 41.6635  loss_cls: 9.2858  loss_conf: 19.1166  loss_xy: 12.3095  loss_wh: 0.9516
+2024/06/02 16:18:33 - mmengine - INFO - Epoch(train) [2][7000/8276]  lr: 1.0000e-04  eta: 0:37:48  time: 0.0670  data_time: 0.0046  memory: 3222  grad_norm: 669.2924  loss: 44.0067  loss_cls: 10.1779  loss_conf: 19.6552  loss_xy: 13.3918  loss_wh: 0.7818
+2024/06/02 16:18:46 - mmengine - INFO - Epoch(train) [2][7200/8276]  lr: 1.0000e-04  eta: 0:37:35  time: 0.0627  data_time: 0.0042  memory: 3222  grad_norm: 556.5073  loss: 35.2575  loss_cls: 7.9735  loss_conf: 15.8568  loss_xy: 10.6507  loss_wh: 0.7765
+2024/06/02 16:18:59 - mmengine - INFO - Epoch(train) [2][7400/8276]  lr: 1.0000e-04  eta: 0:37:21  time: 0.0655  data_time: 0.0047  memory: 3222  grad_norm: 573.6123  loss: 37.9654  loss_cls: 8.9565  loss_conf: 17.0583  loss_xy: 11.0620  loss_wh: 0.8886
+2024/06/02 16:19:13 - mmengine - INFO - Epoch(train) [2][7600/8276]  lr: 1.0000e-04  eta: 0:37:08  time: 0.0661  data_time: 0.0047  memory: 3222  grad_norm: 624.6374  loss: 40.5423  loss_cls: 9.7297  loss_conf: 17.7022  loss_xy: 12.2033  loss_wh: 0.9071
+2024/06/02 16:19:21 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:19:26 - mmengine - INFO - Epoch(train) [2][7800/8276]  lr: 1.0000e-04  eta: 0:36:55  time: 0.0667  data_time: 0.0045  memory: 3197  grad_norm: 659.8441  loss: 46.3214  loss_cls: 11.2892  loss_conf: 20.6443  loss_xy: 13.2666  loss_wh: 1.1213
+2024/06/02 16:19:39 - mmengine - INFO - Epoch(train) [2][8000/8276]  lr: 1.0000e-04  eta: 0:36:42  time: 0.0655  data_time: 0.0045  memory: 3197  grad_norm: 548.1676  loss: 35.0216  loss_cls: 6.7045  loss_conf: 16.5273  loss_xy: 10.8826  loss_wh: 0.9072
+2024/06/02 16:19:53 - mmengine - INFO - Epoch(train) [2][8200/8276]  lr: 1.0000e-04  eta: 0:36:29  time: 0.0656  data_time: 0.0045  memory: 3222  grad_norm: 600.7703  loss: 43.0086  loss_cls: 10.4157  loss_conf: 17.9734  loss_xy: 13.7541  loss_wh: 0.8653
+2024/06/02 16:19:58 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:19:58 - mmengine - INFO - Saving checkpoint at 2 epochs
+2024/06/02 16:20:04 - mmengine - INFO - Epoch(val) [2][ 200/2476]    eta: 0:00:51  time: 0.0220  data_time: 0.0034  memory: 3197  
+2024/06/02 16:20:09 - mmengine - INFO - Epoch(val) [2][ 400/2476]    eta: 0:00:46  time: 0.0219  data_time: 0.0032  memory: 1133  
+2024/06/02 16:20:14 - mmengine - INFO - Epoch(val) [2][ 600/2476]    eta: 0:00:42  time: 0.0244  data_time: 0.0038  memory: 1071  
+2024/06/02 16:20:18 - mmengine - INFO - Epoch(val) [2][ 800/2476]    eta: 0:00:38  time: 0.0224  data_time: 0.0032  memory: 1133  
+2024/06/02 16:20:23 - mmengine - INFO - Epoch(val) [2][1000/2476]    eta: 0:00:33  time: 0.0225  data_time: 0.0034  memory: 1133  
+2024/06/02 16:20:27 - mmengine - INFO - Epoch(val) [2][1200/2476]    eta: 0:00:29  time: 0.0225  data_time: 0.0034  memory: 1071  
+2024/06/02 16:20:32 - mmengine - INFO - Epoch(val) [2][1400/2476]    eta: 0:00:24  time: 0.0240  data_time: 0.0036  memory: 1133  
+2024/06/02 16:20:37 - mmengine - INFO - Epoch(val) [2][1600/2476]    eta: 0:00:20  time: 0.0226  data_time: 0.0033  memory: 1133  
+2024/06/02 16:20:41 - mmengine - INFO - Epoch(val) [2][1800/2476]    eta: 0:00:15  time: 0.0227  data_time: 0.0032  memory: 1071  
+2024/06/02 16:20:46 - mmengine - INFO - Epoch(val) [2][2000/2476]    eta: 0:00:10  time: 0.0242  data_time: 0.0037  memory: 1133  
+2024/06/02 16:20:50 - mmengine - INFO - Epoch(val) [2][2200/2476]    eta: 0:00:06  time: 0.0221  data_time: 0.0035  memory: 1112  
+2024/06/02 16:20:55 - mmengine - INFO - Epoch(val) [2][2400/2476]    eta: 0:00:01  time: 0.0223  data_time: 0.0033  memory: 1133  
+2024/06/02 16:20:57 - mmengine - INFO - 
+---------------iou_thr: 0.5---------------
+2024/06/02 16:21:00 - mmengine - INFO - 
++-------------+------+-------+--------+-------+
+| class       | gts  | dets  | recall | ap    |
++-------------+------+-------+--------+-------+
+| aeroplane   | 285  | 5124  | 0.635  | 0.160 |
+| bicycle     | 337  | 6314  | 0.840  | 0.402 |
+| bird        | 459  | 7969  | 0.804  | 0.423 |
+| boat        | 263  | 9502  | 0.608  | 0.058 |
+| bottle      | 469  | 8680  | 0.488  | 0.153 |
+| bus         | 213  | 3533  | 0.817  | 0.326 |
+| car         | 1201 | 14223 | 0.818  | 0.555 |
+| cat         | 358  | 3677  | 0.846  | 0.366 |
+| chair       | 756  | 17848 | 0.755  | 0.370 |
+| cow         | 244  | 3106  | 0.824  | 0.208 |
+| diningtable | 206  | 4494  | 0.733  | 0.097 |
+| dog         | 489  | 5510  | 0.904  | 0.308 |
+| horse       | 348  | 3168  | 0.839  | 0.486 |
+| motorbike   | 325  | 3574  | 0.766  | 0.342 |
+| person      | 4528 | 28581 | 0.851  | 0.674 |
+| pottedplant | 480  | 14288 | 0.585  | 0.078 |
+| sheep       | 242  | 4642  | 0.769  | 0.225 |
+| sofa        | 239  | 4803  | 0.774  | 0.360 |
+| train       | 282  | 3632  | 0.762  | 0.305 |
+| tvmonitor   | 308  | 7580  | 0.782  | 0.436 |
++-------------+------+-------+--------+-------+
+| mAP         |      |       |        | 0.317 |
++-------------+------+-------+--------+-------+
+2024/06/02 16:21:00 - mmengine - INFO - Epoch(val) [2][2476/2476]    pascal_voc/mAP: 0.3167  pascal_voc/AP50: 0.3170  data_time: 0.0035  time: 0.0229
+2024/06/02 16:21:13 - mmengine - INFO - Epoch(train) [3][ 200/8276]  lr: 1.0000e-05  eta: 0:36:11  time: 0.0662  data_time: 0.0046  memory: 3222  grad_norm: 526.2793  loss: 39.0838  loss_cls: 9.3468  loss_conf: 16.7296  loss_xy: 12.4334  loss_wh: 0.5740
+2024/06/02 16:21:26 - mmengine - INFO - Epoch(train) [3][ 400/8276]  lr: 1.0000e-05  eta: 0:35:58  time: 0.0668  data_time: 0.0046  memory: 3222  grad_norm: 611.5360  loss: 41.2475  loss_cls: 9.5953  loss_conf: 17.9405  loss_xy: 12.9979  loss_wh: 0.7138
+2024/06/02 16:21:29 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:21:39 - mmengine - INFO - Epoch(train) [3][ 600/8276]  lr: 1.0000e-05  eta: 0:35:45  time: 0.0661  data_time: 0.0045  memory: 3222  grad_norm: 548.7711  loss: 36.6108  loss_cls: 7.3666  loss_conf: 16.5924  loss_xy: 11.9955  loss_wh: 0.6563
+2024/06/02 16:21:52 - mmengine - INFO - Epoch(train) [3][ 800/8276]  lr: 1.0000e-05  eta: 0:35:31  time: 0.0648  data_time: 0.0043  memory: 3222  grad_norm: 539.8502  loss: 34.3435  loss_cls: 7.7394  loss_conf: 15.2532  loss_xy: 10.7046  loss_wh: 0.6463
+2024/06/02 16:22:05 - mmengine - INFO - Epoch(train) [3][1000/8276]  lr: 1.0000e-05  eta: 0:35:17  time: 0.0662  data_time: 0.0046  memory: 3197  grad_norm: 515.8908  loss: 32.6171  loss_cls: 7.9872  loss_conf: 12.8375  loss_xy: 11.2587  loss_wh: 0.5338
+2024/06/02 16:22:18 - mmengine - INFO - Epoch(train) [3][1200/8276]  lr: 1.0000e-05  eta: 0:35:04  time: 0.0640  data_time: 0.0041  memory: 3222  grad_norm: 576.3676  loss: 39.5082  loss_cls: 7.6541  loss_conf: 18.0821  loss_xy: 13.0755  loss_wh: 0.6966
+2024/06/02 16:22:31 - mmengine - INFO - Epoch(train) [3][1400/8276]  lr: 1.0000e-05  eta: 0:34:51  time: 0.0669  data_time: 0.0045  memory: 3222  grad_norm: 602.6999  loss: 40.2956  loss_cls: 9.0463  loss_conf: 17.6527  loss_xy: 12.7168  loss_wh: 0.8798
+2024/06/02 16:22:35 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:22:45 - mmengine - INFO - Epoch(train) [3][1600/8276]  lr: 1.0000e-05  eta: 0:34:37  time: 0.0653  data_time: 0.0045  memory: 3197  grad_norm: 505.5195  loss: 31.0319  loss_cls: 6.6323  loss_conf: 13.3389  loss_xy: 10.4025  loss_wh: 0.6582
+2024/06/02 16:22:58 - mmengine - INFO - Epoch(train) [3][1800/8276]  lr: 1.0000e-05  eta: 0:34:24  time: 0.0662  data_time: 0.0047  memory: 3222  grad_norm: 627.7636  loss: 40.6379  loss_cls: 10.2363  loss_conf: 16.7317  loss_xy: 13.0164  loss_wh: 0.6535
+2024/06/02 16:23:11 - mmengine - INFO - Epoch(train) [3][2000/8276]  lr: 1.0000e-05  eta: 0:34:11  time: 0.0671  data_time: 0.0047  memory: 3222  grad_norm: 569.7994  loss: 35.0567  loss_cls: 8.3279  loss_conf: 14.8604  loss_xy: 11.2369  loss_wh: 0.6314
+2024/06/02 16:23:24 - mmengine - INFO - Epoch(train) [3][2200/8276]  lr: 1.0000e-05  eta: 0:33:58  time: 0.0652  data_time: 0.0045  memory: 3222  grad_norm: 537.0193  loss: 32.9932  loss_cls: 8.2288  loss_conf: 13.8184  loss_xy: 10.2779  loss_wh: 0.6682
+2024/06/02 16:23:38 - mmengine - INFO - Epoch(train) [3][2400/8276]  lr: 1.0000e-05  eta: 0:33:46  time: 0.0692  data_time: 0.0046  memory: 3222  grad_norm: 546.1090  loss: 33.3174  loss_cls: 7.3651  loss_conf: 14.2981  loss_xy: 10.8419  loss_wh: 0.8124
+2024/06/02 16:23:41 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:23:51 - mmengine - INFO - Epoch(train) [3][2600/8276]  lr: 1.0000e-05  eta: 0:33:32  time: 0.0671  data_time: 0.0046  memory: 3222  grad_norm: 517.8392  loss: 33.3114  loss_cls: 6.9704  loss_conf: 14.8808  loss_xy: 10.8508  loss_wh: 0.6093
+2024/06/02 16:24:04 - mmengine - INFO - Epoch(train) [3][2800/8276]  lr: 1.0000e-05  eta: 0:33:18  time: 0.0647  data_time: 0.0042  memory: 3197  grad_norm: 581.7629  loss: 38.6742  loss_cls: 8.6970  loss_conf: 16.3512  loss_xy: 12.8141  loss_wh: 0.8120
+2024/06/02 16:24:17 - mmengine - INFO - Epoch(train) [3][3000/8276]  lr: 1.0000e-05  eta: 0:33:05  time: 0.0696  data_time: 0.0046  memory: 3222  grad_norm: 625.9637  loss: 40.1034  loss_cls: 9.3202  loss_conf: 16.9468  loss_xy: 13.1322  loss_wh: 0.7041
+2024/06/02 16:24:31 - mmengine - INFO - Epoch(train) [3][3200/8276]  lr: 1.0000e-05  eta: 0:32:53  time: 0.0664  data_time: 0.0045  memory: 3222  grad_norm: 630.7714  loss: 39.5043  loss_cls: 8.7002  loss_conf: 17.8553  loss_xy: 12.2871  loss_wh: 0.6617
+2024/06/02 16:24:44 - mmengine - INFO - Epoch(train) [3][3400/8276]  lr: 1.0000e-05  eta: 0:32:39  time: 0.0646  data_time: 0.0043  memory: 3197  grad_norm: 573.0148  loss: 36.1787  loss_cls: 7.9828  loss_conf: 15.5867  loss_xy: 11.9400  loss_wh: 0.6691
+2024/06/02 16:24:47 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:24:57 - mmengine - INFO - Epoch(train) [3][3600/8276]  lr: 1.0000e-05  eta: 0:32:26  time: 0.0634  data_time: 0.0042  memory: 3197  grad_norm: 667.1329  loss: 41.6599  loss_cls: 8.2427  loss_conf: 18.7414  loss_xy: 13.9567  loss_wh: 0.7191
+2024/06/02 16:25:09 - mmengine - INFO - Epoch(train) [3][3800/8276]  lr: 1.0000e-05  eta: 0:32:12  time: 0.0632  data_time: 0.0042  memory: 3222  grad_norm: 619.6432  loss: 38.5696  loss_cls: 8.5393  loss_conf: 17.3711  loss_xy: 11.9975  loss_wh: 0.6618
+2024/06/02 16:25:22 - mmengine - INFO - Epoch(train) [3][4000/8276]  lr: 1.0000e-05  eta: 0:31:58  time: 0.0641  data_time: 0.0043  memory: 3222  grad_norm: 589.2319  loss: 37.9491  loss_cls: 7.7399  loss_conf: 16.8931  loss_xy: 12.5553  loss_wh: 0.7608
+2024/06/02 16:25:35 - mmengine - INFO - Epoch(train) [3][4200/8276]  lr: 1.0000e-05  eta: 0:31:45  time: 0.0673  data_time: 0.0046  memory: 3222  grad_norm: 527.9785  loss: 30.4075  loss_cls: 6.4448  loss_conf: 12.6402  loss_xy: 10.7629  loss_wh: 0.5596
+2024/06/02 16:25:49 - mmengine - INFO - Epoch(train) [3][4400/8276]  lr: 1.0000e-05  eta: 0:31:32  time: 0.0656  data_time: 0.0048  memory: 3222  grad_norm: 596.5639  loss: 38.2934  loss_cls: 8.4801  loss_conf: 16.4609  loss_xy: 12.5670  loss_wh: 0.7854
+2024/06/02 16:25:52 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:26:02 - mmengine - INFO - Epoch(train) [3][4600/8276]  lr: 1.0000e-05  eta: 0:31:19  time: 0.0666  data_time: 0.0047  memory: 3222  grad_norm: 659.7765  loss: 42.3552  loss_cls: 10.5387  loss_conf: 18.1993  loss_xy: 12.8111  loss_wh: 0.8061
+2024/06/02 16:26:15 - mmengine - INFO - Epoch(train) [3][4800/8276]  lr: 1.0000e-05  eta: 0:31:05  time: 0.0635  data_time: 0.0042  memory: 3197  grad_norm: 576.6303  loss: 35.7749  loss_cls: 7.7898  loss_conf: 15.7300  loss_xy: 11.6353  loss_wh: 0.6199
+2024/06/02 16:26:28 - mmengine - INFO - Epoch(train) [3][5000/8276]  lr: 1.0000e-05  eta: 0:30:52  time: 0.0666  data_time: 0.0047  memory: 3222  grad_norm: 642.1564  loss: 40.7008  loss_cls: 9.2227  loss_conf: 17.7333  loss_xy: 12.8954  loss_wh: 0.8493
+2024/06/02 16:26:41 - mmengine - INFO - Epoch(train) [3][5200/8276]  lr: 1.0000e-05  eta: 0:30:39  time: 0.0663  data_time: 0.0045  memory: 3222  grad_norm: 535.3327  loss: 31.5194  loss_cls: 7.1469  loss_conf: 13.0034  loss_xy: 10.7415  loss_wh: 0.6276
+2024/06/02 16:26:54 - mmengine - INFO - Epoch(train) [3][5400/8276]  lr: 1.0000e-05  eta: 0:30:25  time: 0.0626  data_time: 0.0042  memory: 3222  grad_norm: 631.7837  loss: 37.3511  loss_cls: 7.8804  loss_conf: 17.0334  loss_xy: 11.6873  loss_wh: 0.7501
+2024/06/02 16:26:57 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:27:07 - mmengine - INFO - Epoch(train) [3][5600/8276]  lr: 1.0000e-05  eta: 0:30:12  time: 0.0673  data_time: 0.0047  memory: 3222  grad_norm: 538.0440  loss: 31.0760  loss_cls: 7.0445  loss_conf: 13.0393  loss_xy: 10.4099  loss_wh: 0.5823
+2024/06/02 16:27:21 - mmengine - INFO - Epoch(train) [3][5800/8276]  lr: 1.0000e-05  eta: 0:29:59  time: 0.0672  data_time: 0.0049  memory: 3222  grad_norm: 671.8173  loss: 46.2585  loss_cls: 10.4715  loss_conf: 21.1560  loss_xy: 13.8827  loss_wh: 0.7483
+2024/06/02 16:27:34 - mmengine - INFO - Epoch(train) [3][6000/8276]  lr: 1.0000e-05  eta: 0:29:46  time: 0.0663  data_time: 0.0047  memory: 3197  grad_norm: 628.1969  loss: 37.1758  loss_cls: 8.5519  loss_conf: 15.9256  loss_xy: 12.0173  loss_wh: 0.6810
+2024/06/02 16:27:47 - mmengine - INFO - Epoch(train) [3][6200/8276]  lr: 1.0000e-05  eta: 0:29:33  time: 0.0637  data_time: 0.0043  memory: 3222  grad_norm: 564.8098  loss: 30.5794  loss_cls: 6.7480  loss_conf: 12.6812  loss_xy: 10.5450  loss_wh: 0.6051
+2024/06/02 16:28:00 - mmengine - INFO - Epoch(train) [3][6400/8276]  lr: 1.0000e-05  eta: 0:29:19  time: 0.0641  data_time: 0.0043  memory: 3197  grad_norm: 642.9251  loss: 41.2315  loss_cls: 9.7465  loss_conf: 17.4227  loss_xy: 13.2707  loss_wh: 0.7916
+2024/06/02 16:28:03 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:28:13 - mmengine - INFO - Epoch(train) [3][6600/8276]  lr: 1.0000e-05  eta: 0:29:06  time: 0.0674  data_time: 0.0046  memory: 3222  grad_norm: 655.6998  loss: 39.3435  loss_cls: 9.3333  loss_conf: 16.6611  loss_xy: 12.7894  loss_wh: 0.5596
+2024/06/02 16:28:27 - mmengine - INFO - Epoch(train) [3][6800/8276]  lr: 1.0000e-05  eta: 0:28:53  time: 0.0660  data_time: 0.0048  memory: 3197  grad_norm: 713.9728  loss: 45.1586  loss_cls: 10.6050  loss_conf: 19.2213  loss_xy: 14.5057  loss_wh: 0.8266
+2024/06/02 16:28:40 - mmengine - INFO - Epoch(train) [3][7000/8276]  lr: 1.0000e-05  eta: 0:28:40  time: 0.0690  data_time: 0.0047  memory: 3222  grad_norm: 648.0214  loss: 39.2728  loss_cls: 8.6232  loss_conf: 16.8520  loss_xy: 13.0180  loss_wh: 0.7796
+2024/06/02 16:28:53 - mmengine - INFO - Epoch(train) [3][7200/8276]  lr: 1.0000e-05  eta: 0:28:27  time: 0.0658  data_time: 0.0046  memory: 3222  grad_norm: 645.1571  loss: 41.5549  loss_cls: 9.9164  loss_conf: 17.6506  loss_xy: 13.1820  loss_wh: 0.8059
+2024/06/02 16:29:06 - mmengine - INFO - Epoch(train) [3][7400/8276]  lr: 1.0000e-05  eta: 0:28:14  time: 0.0655  data_time: 0.0046  memory: 3222  grad_norm: 558.9579  loss: 34.1245  loss_cls: 6.8159  loss_conf: 14.8383  loss_xy: 11.8180  loss_wh: 0.6522
+2024/06/02 16:29:10 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:29:20 - mmengine - INFO - Epoch(train) [3][7600/8276]  lr: 1.0000e-05  eta: 0:28:01  time: 0.0661  data_time: 0.0046  memory: 3222  grad_norm: 574.4190  loss: 31.8971  loss_cls: 6.3032  loss_conf: 14.3956  loss_xy: 10.6130  loss_wh: 0.5853
+2024/06/02 16:29:33 - mmengine - INFO - Epoch(train) [3][7800/8276]  lr: 1.0000e-05  eta: 0:27:48  time: 0.0669  data_time: 0.0047  memory: 3222  grad_norm: 611.4782  loss: 34.9554  loss_cls: 7.5918  loss_conf: 15.6826  loss_xy: 11.1147  loss_wh: 0.5663
+2024/06/02 16:29:46 - mmengine - INFO - Epoch(train) [3][8000/8276]  lr: 1.0000e-05  eta: 0:27:35  time: 0.0660  data_time: 0.0045  memory: 3197  grad_norm: 537.3481  loss: 28.9063  loss_cls: 6.5695  loss_conf: 11.7543  loss_xy: 9.9555  loss_wh: 0.6271
+2024/06/02 16:30:00 - mmengine - INFO - Epoch(train) [3][8200/8276]  lr: 1.0000e-05  eta: 0:27:22  time: 0.0660  data_time: 0.0042  memory: 3222  grad_norm: 632.0702  loss: 37.9298  loss_cls: 7.9433  loss_conf: 16.6234  loss_xy: 12.6134  loss_wh: 0.7497
+2024/06/02 16:30:05 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:30:05 - mmengine - INFO - Saving checkpoint at 3 epochs
+2024/06/02 16:30:11 - mmengine - INFO - Epoch(val) [3][ 200/2476]    eta: 0:00:52  time: 0.0219  data_time: 0.0032  memory: 3222  
+2024/06/02 16:30:16 - mmengine - INFO - Epoch(val) [3][ 400/2476]    eta: 0:00:47  time: 0.0220  data_time: 0.0033  memory: 1133  
+2024/06/02 16:30:20 - mmengine - INFO - Epoch(val) [3][ 600/2476]    eta: 0:00:42  time: 0.0223  data_time: 0.0033  memory: 1071  
+2024/06/02 16:30:24 - mmengine - INFO - Epoch(val) [3][ 800/2476]    eta: 0:00:37  time: 0.0223  data_time: 0.0032  memory: 1133  
+2024/06/02 16:30:29 - mmengine - INFO - Epoch(val) [3][1000/2476]    eta: 0:00:33  time: 0.0242  data_time: 0.0038  memory: 1133  
+2024/06/02 16:30:34 - mmengine - INFO - Epoch(val) [3][1200/2476]    eta: 0:00:29  time: 0.0225  data_time: 0.0034  memory: 1071  
+2024/06/02 16:30:38 - mmengine - INFO - Epoch(val) [3][1400/2476]    eta: 0:00:24  time: 0.0229  data_time: 0.0033  memory: 1133  
+2024/06/02 16:30:43 - mmengine - INFO - Epoch(val) [3][1600/2476]    eta: 0:00:20  time: 0.0246  data_time: 0.0039  memory: 1133  
+2024/06/02 16:30:48 - mmengine - INFO - Epoch(val) [3][1800/2476]    eta: 0:00:15  time: 0.0246  data_time: 0.0038  memory: 1071  
+2024/06/02 16:30:52 - mmengine - INFO - Epoch(val) [3][2000/2476]    eta: 0:00:10  time: 0.0228  data_time: 0.0034  memory: 1133  
+2024/06/02 16:30:57 - mmengine - INFO - Epoch(val) [3][2200/2476]    eta: 0:00:06  time: 0.0219  data_time: 0.0033  memory: 1112  
+2024/06/02 16:31:01 - mmengine - INFO - Epoch(val) [3][2400/2476]    eta: 0:00:01  time: 0.0219  data_time: 0.0033  memory: 1133  
+2024/06/02 16:31:03 - mmengine - INFO - 
+---------------iou_thr: 0.5---------------
+2024/06/02 16:31:06 - mmengine - INFO - 
++-------------+------+-------+--------+-------+
+| class       | gts  | dets  | recall | ap    |
++-------------+------+-------+--------+-------+
+| aeroplane   | 285  | 3759  | 0.695  | 0.384 |
+| bicycle     | 337  | 6004  | 0.869  | 0.459 |
+| bird        | 459  | 6265  | 0.817  | 0.510 |
+| boat        | 263  | 8426  | 0.650  | 0.141 |
+| bottle      | 469  | 8075  | 0.529  | 0.230 |
+| bus         | 213  | 3073  | 0.854  | 0.369 |
+| car         | 1201 | 11382 | 0.839  | 0.658 |
+| cat         | 358  | 3012  | 0.894  | 0.517 |
+| chair       | 756  | 16893 | 0.804  | 0.423 |
+| cow         | 244  | 2571  | 0.824  | 0.229 |
+| diningtable | 206  | 4185  | 0.786  | 0.158 |
+| dog         | 489  | 4245  | 0.926  | 0.404 |
+| horse       | 348  | 2805  | 0.874  | 0.551 |
+| motorbike   | 325  | 3560  | 0.803  | 0.394 |
+| person      | 4528 | 22375 | 0.839  | 0.677 |
+| pottedplant | 480  | 13192 | 0.623  | 0.179 |
+| sheep       | 242  | 4332  | 0.781  | 0.242 |
+| sofa        | 239  | 4214  | 0.820  | 0.434 |
+| train       | 282  | 2817  | 0.812  | 0.386 |
+| tvmonitor   | 308  | 5798  | 0.792  | 0.515 |
++-------------+------+-------+--------+-------+
+| mAP         |      |       |        | 0.393 |
++-------------+------+-------+--------+-------+
+2024/06/02 16:31:06 - mmengine - INFO - Epoch(val) [3][2476/2476]    pascal_voc/mAP: 0.3931  pascal_voc/AP50: 0.3930  data_time: 0.0035  time: 0.0228
+2024/06/02 16:31:18 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:31:19 - mmengine - INFO - Epoch(train) [4][ 200/8276]  lr: 1.0000e-05  eta: 0:27:04  time: 0.0663  data_time: 0.0045  memory: 3222  grad_norm: 639.4611  loss: 35.7630  loss_cls: 7.5819  loss_conf: 15.7089  loss_xy: 11.6791  loss_wh: 0.7931
+2024/06/02 16:31:33 - mmengine - INFO - Epoch(train) [4][ 400/8276]  lr: 1.0000e-05  eta: 0:26:51  time: 0.0683  data_time: 0.0048  memory: 3222  grad_norm: 587.2218  loss: 33.2850  loss_cls: 6.9458  loss_conf: 13.8827  loss_xy: 11.8862  loss_wh: 0.5704
+2024/06/02 16:31:46 - mmengine - INFO - Epoch(train) [4][ 600/8276]  lr: 1.0000e-05  eta: 0:26:37  time: 0.0630  data_time: 0.0042  memory: 3222  grad_norm: 576.9302  loss: 31.8014  loss_cls: 6.9511  loss_conf: 14.0996  loss_xy: 10.2231  loss_wh: 0.5275
+2024/06/02 16:31:59 - mmengine - INFO - Epoch(train) [4][ 800/8276]  lr: 1.0000e-05  eta: 0:26:24  time: 0.0658  data_time: 0.0044  memory: 3222  grad_norm: 547.3540  loss: 31.1065  loss_cls: 6.8100  loss_conf: 12.7370  loss_xy: 10.8382  loss_wh: 0.7214
+2024/06/02 16:32:12 - mmengine - INFO - Epoch(train) [4][1000/8276]  lr: 1.0000e-05  eta: 0:26:11  time: 0.0635  data_time: 0.0044  memory: 3222  grad_norm: 616.6956  loss: 36.3993  loss_cls: 7.5978  loss_conf: 16.3950  loss_xy: 11.7681  loss_wh: 0.6383
+2024/06/02 16:32:23 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:32:25 - mmengine - INFO - Epoch(train) [4][1200/8276]  lr: 1.0000e-05  eta: 0:25:57  time: 0.0639  data_time: 0.0042  memory: 3197  grad_norm: 634.8641  loss: 36.2278  loss_cls: 7.5584  loss_conf: 15.4259  loss_xy: 12.4266  loss_wh: 0.8169
+2024/06/02 16:32:38 - mmengine - INFO - Epoch(train) [4][1400/8276]  lr: 1.0000e-05  eta: 0:25:44  time: 0.0661  data_time: 0.0046  memory: 3197  grad_norm: 626.9639  loss: 35.9836  loss_cls: 8.8502  loss_conf: 14.8079  loss_xy: 11.6630  loss_wh: 0.6625
+2024/06/02 16:32:52 - mmengine - INFO - Epoch(train) [4][1600/8276]  lr: 1.0000e-05  eta: 0:25:31  time: 0.0688  data_time: 0.0046  memory: 3197  grad_norm: 554.8615  loss: 32.2806  loss_cls: 7.4538  loss_conf: 13.4383  loss_xy: 10.8083  loss_wh: 0.5802
+2024/06/02 16:33:05 - mmengine - INFO - Epoch(train) [4][1800/8276]  lr: 1.0000e-05  eta: 0:25:18  time: 0.0674  data_time: 0.0046  memory: 3197  grad_norm: 698.2345  loss: 41.7455  loss_cls: 9.2632  loss_conf: 17.5633  loss_xy: 14.0497  loss_wh: 0.8693
+2024/06/02 16:33:18 - mmengine - INFO - Epoch(train) [4][2000/8276]  lr: 1.0000e-05  eta: 0:25:05  time: 0.0665  data_time: 0.0045  memory: 3222  grad_norm: 604.7841  loss: 33.7271  loss_cls: 7.3338  loss_conf: 14.3129  loss_xy: 11.5656  loss_wh: 0.5148
+2024/06/02 16:33:29 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:33:31 - mmengine - INFO - Epoch(train) [4][2200/8276]  lr: 1.0000e-05  eta: 0:24:51  time: 0.0648  data_time: 0.0043  memory: 3197  grad_norm: 608.3800  loss: 33.6015  loss_cls: 5.8826  loss_conf: 15.4888  loss_xy: 11.5680  loss_wh: 0.6622
+2024/06/02 16:33:45 - mmengine - INFO - Epoch(train) [4][2400/8276]  lr: 1.0000e-05  eta: 0:24:38  time: 0.0664  data_time: 0.0047  memory: 3222  grad_norm: 618.6463  loss: 33.9623  loss_cls: 7.0102  loss_conf: 14.3452  loss_xy: 11.9882  loss_wh: 0.6188
+2024/06/02 16:33:58 - mmengine - INFO - Epoch(train) [4][2600/8276]  lr: 1.0000e-05  eta: 0:24:25  time: 0.0662  data_time: 0.0047  memory: 3222  grad_norm: 664.1576  loss: 40.3109  loss_cls: 8.1959  loss_conf: 17.7843  loss_xy: 13.6619  loss_wh: 0.6688
+2024/06/02 16:34:11 - mmengine - INFO - Epoch(train) [4][2800/8276]  lr: 1.0000e-05  eta: 0:24:12  time: 0.0669  data_time: 0.0045  memory: 3222  grad_norm: 570.3029  loss: 30.9402  loss_cls: 6.4694  loss_conf: 13.3729  loss_xy: 10.5536  loss_wh: 0.5443
+2024/06/02 16:34:25 - mmengine - INFO - Epoch(train) [4][3000/8276]  lr: 1.0000e-05  eta: 0:23:59  time: 0.0647  data_time: 0.0044  memory: 3222  grad_norm: 625.0152  loss: 34.5695  loss_cls: 8.1008  loss_conf: 14.2073  loss_xy: 11.5743  loss_wh: 0.6870
+2024/06/02 16:34:36 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:34:37 - mmengine - INFO - Epoch(train) [4][3200/8276]  lr: 1.0000e-05  eta: 0:23:46  time: 0.0636  data_time: 0.0043  memory: 3222  grad_norm: 725.7852  loss: 43.2995  loss_cls: 9.3061  loss_conf: 18.1562  loss_xy: 14.8500  loss_wh: 0.9872
+2024/06/02 16:34:50 - mmengine - INFO - Epoch(train) [4][3400/8276]  lr: 1.0000e-05  eta: 0:23:32  time: 0.0642  data_time: 0.0041  memory: 3222  grad_norm: 611.1713  loss: 30.2679  loss_cls: 6.3587  loss_conf: 12.9876  loss_xy: 10.4972  loss_wh: 0.4244
+2024/06/02 16:35:03 - mmengine - INFO - Epoch(train) [4][3600/8276]  lr: 1.0000e-05  eta: 0:23:19  time: 0.0635  data_time: 0.0043  memory: 3222  grad_norm: 627.9515  loss: 36.4753  loss_cls: 8.6613  loss_conf: 15.0974  loss_xy: 11.8407  loss_wh: 0.8759
+2024/06/02 16:35:16 - mmengine - INFO - Epoch(train) [4][3800/8276]  lr: 1.0000e-05  eta: 0:23:05  time: 0.0627  data_time: 0.0042  memory: 3222  grad_norm: 703.3995  loss: 39.7860  loss_cls: 8.7310  loss_conf: 16.6035  loss_xy: 13.8078  loss_wh: 0.6436
+2024/06/02 16:35:29 - mmengine - INFO - Epoch(train) [4][4000/8276]  lr: 1.0000e-05  eta: 0:22:52  time: 0.0668  data_time: 0.0046  memory: 3222  grad_norm: 737.8070  loss: 40.5523  loss_cls: 8.5529  loss_conf: 18.3596  loss_xy: 12.9080  loss_wh: 0.7319
+2024/06/02 16:35:40 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:35:42 - mmengine - INFO - Epoch(train) [4][4200/8276]  lr: 1.0000e-05  eta: 0:22:39  time: 0.0656  data_time: 0.0043  memory: 3222  grad_norm: 677.0406  loss: 36.7448  loss_cls: 8.7351  loss_conf: 15.8037  loss_xy: 11.5611  loss_wh: 0.6450
+2024/06/02 16:35:56 - mmengine - INFO - Epoch(train) [4][4400/8276]  lr: 1.0000e-05  eta: 0:22:26  time: 0.0671  data_time: 0.0046  memory: 3222  grad_norm: 631.5926  loss: 33.9133  loss_cls: 6.9548  loss_conf: 14.2140  loss_xy: 12.0652  loss_wh: 0.6793
+2024/06/02 16:36:09 - mmengine - INFO - Epoch(train) [4][4600/8276]  lr: 1.0000e-05  eta: 0:22:13  time: 0.0658  data_time: 0.0046  memory: 3222  grad_norm: 683.1363  loss: 38.0768  loss_cls: 7.4111  loss_conf: 16.3557  loss_xy: 13.3981  loss_wh: 0.9118
+2024/06/02 16:36:22 - mmengine - INFO - Epoch(train) [4][4800/8276]  lr: 1.0000e-05  eta: 0:22:00  time: 0.0674  data_time: 0.0045  memory: 3197  grad_norm: 600.1516  loss: 31.6978  loss_cls: 6.9526  loss_conf: 12.6858  loss_xy: 11.3627  loss_wh: 0.6968
+2024/06/02 16:36:36 - mmengine - INFO - Epoch(train) [4][5000/8276]  lr: 1.0000e-05  eta: 0:21:47  time: 0.0658  data_time: 0.0046  memory: 3222  grad_norm: 583.8878  loss: 31.9824  loss_cls: 6.8210  loss_conf: 13.4824  loss_xy: 11.1166  loss_wh: 0.5623
+2024/06/02 16:36:47 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:36:49 - mmengine - INFO - Epoch(train) [4][5200/8276]  lr: 1.0000e-05  eta: 0:21:34  time: 0.0654  data_time: 0.0045  memory: 3222  grad_norm: 592.8614  loss: 31.9766  loss_cls: 6.6539  loss_conf: 13.7084  loss_xy: 10.8389  loss_wh: 0.7753
+2024/06/02 16:37:02 - mmengine - INFO - Epoch(train) [4][5400/8276]  lr: 1.0000e-05  eta: 0:21:20  time: 0.0661  data_time: 0.0046  memory: 3222  grad_norm: 722.9657  loss: 42.7451  loss_cls: 10.2001  loss_conf: 18.5056  loss_xy: 13.4095  loss_wh: 0.6298
+2024/06/02 16:37:16 - mmengine - INFO - Epoch(train) [4][5600/8276]  lr: 1.0000e-05  eta: 0:21:07  time: 0.0670  data_time: 0.0048  memory: 3222  grad_norm: 650.8528  loss: 36.1049  loss_cls: 7.4268  loss_conf: 15.5013  loss_xy: 12.5146  loss_wh: 0.6622
+2024/06/02 16:37:29 - mmengine - INFO - Epoch(train) [4][5800/8276]  lr: 1.0000e-05  eta: 0:20:54  time: 0.0658  data_time: 0.0047  memory: 3222  grad_norm: 683.1366  loss: 38.7918  loss_cls: 8.1485  loss_conf: 16.9258  loss_xy: 12.8978  loss_wh: 0.8196
+2024/06/02 16:37:42 - mmengine - INFO - Epoch(train) [4][6000/8276]  lr: 1.0000e-05  eta: 0:20:41  time: 0.0664  data_time: 0.0047  memory: 3222  grad_norm: 634.8588  loss: 33.8131  loss_cls: 7.1120  loss_conf: 14.0833  loss_xy: 11.9824  loss_wh: 0.6355
+2024/06/02 16:37:53 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:37:55 - mmengine - INFO - Epoch(train) [4][6200/8276]  lr: 1.0000e-05  eta: 0:20:28  time: 0.0699  data_time: 0.0047  memory: 3222  grad_norm: 657.3353  loss: 35.8483  loss_cls: 7.3089  loss_conf: 15.2795  loss_xy: 12.5701  loss_wh: 0.6897
+2024/06/02 16:38:09 - mmengine - INFO - Epoch(train) [4][6400/8276]  lr: 1.0000e-05  eta: 0:20:15  time: 0.0647  data_time: 0.0048  memory: 3222  grad_norm: 621.1124  loss: 32.7634  loss_cls: 7.2965  loss_conf: 13.6149  loss_xy: 11.2729  loss_wh: 0.5791
+2024/06/02 16:38:22 - mmengine - INFO - Epoch(train) [4][6600/8276]  lr: 1.0000e-05  eta: 0:20:01  time: 0.0664  data_time: 0.0046  memory: 3197  grad_norm: 693.2483  loss: 36.8125  loss_cls: 7.4720  loss_conf: 16.6002  loss_xy: 12.0751  loss_wh: 0.6651
+2024/06/02 16:38:35 - mmengine - INFO - Epoch(train) [4][6800/8276]  lr: 1.0000e-05  eta: 0:19:48  time: 0.0673  data_time: 0.0048  memory: 3222  grad_norm: 709.3649  loss: 46.5407  loss_cls: 11.0384  loss_conf: 19.8791  loss_xy: 14.7381  loss_wh: 0.8851
+2024/06/02 16:38:48 - mmengine - INFO - Epoch(train) [4][7000/8276]  lr: 1.0000e-05  eta: 0:19:35  time: 0.0672  data_time: 0.0046  memory: 3222  grad_norm: 625.1133  loss: 35.2846  loss_cls: 7.2498  loss_conf: 15.0443  loss_xy: 12.4321  loss_wh: 0.5584
+2024/06/02 16:39:00 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:39:02 - mmengine - INFO - Epoch(train) [4][7200/8276]  lr: 1.0000e-05  eta: 0:19:22  time: 0.0661  data_time: 0.0047  memory: 3222  grad_norm: 677.9718  loss: 38.4483  loss_cls: 8.8162  loss_conf: 16.0544  loss_xy: 12.7993  loss_wh: 0.7784
+2024/06/02 16:39:15 - mmengine - INFO - Epoch(train) [4][7400/8276]  lr: 1.0000e-05  eta: 0:19:09  time: 0.0659  data_time: 0.0050  memory: 3222  grad_norm: 683.3426  loss: 34.3505  loss_cls: 8.2605  loss_conf: 13.7066  loss_xy: 11.6811  loss_wh: 0.7022
+2024/06/02 16:39:28 - mmengine - INFO - Epoch(train) [4][7600/8276]  lr: 1.0000e-05  eta: 0:18:56  time: 0.0657  data_time: 0.0046  memory: 3222  grad_norm: 674.6097  loss: 38.6464  loss_cls: 7.4687  loss_conf: 16.7461  loss_xy: 13.7583  loss_wh: 0.6732
+2024/06/02 16:39:42 - mmengine - INFO - Epoch(train) [4][7800/8276]  lr: 1.0000e-05  eta: 0:18:43  time: 0.0670  data_time: 0.0046  memory: 3197  grad_norm: 701.3781  loss: 38.4412  loss_cls: 7.6753  loss_conf: 17.0061  loss_xy: 12.9952  loss_wh: 0.7645
+2024/06/02 16:39:55 - mmengine - INFO - Epoch(train) [4][8000/8276]  lr: 1.0000e-05  eta: 0:18:30  time: 0.0670  data_time: 0.0046  memory: 3222  grad_norm: 636.7579  loss: 33.7055  loss_cls: 7.2481  loss_conf: 15.1362  loss_xy: 10.7137  loss_wh: 0.6076
+2024/06/02 16:40:06 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:40:08 - mmengine - INFO - Epoch(train) [4][8200/8276]  lr: 1.0000e-05  eta: 0:18:16  time: 0.0644  data_time: 0.0041  memory: 3222  grad_norm: 761.2011  loss: 45.9092  loss_cls: 11.1385  loss_conf: 18.8892  loss_xy: 14.9788  loss_wh: 0.9027
+2024/06/02 16:40:13 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:40:13 - mmengine - INFO - Saving checkpoint at 4 epochs
+2024/06/02 16:40:19 - mmengine - INFO - Epoch(val) [4][ 200/2476]    eta: 0:00:51  time: 0.0227  data_time: 0.0035  memory: 3222  
+2024/06/02 16:40:24 - mmengine - INFO - Epoch(val) [4][ 400/2476]    eta: 0:00:47  time: 0.0220  data_time: 0.0032  memory: 1133  
+2024/06/02 16:40:28 - mmengine - INFO - Epoch(val) [4][ 600/2476]    eta: 0:00:42  time: 0.0227  data_time: 0.0034  memory: 1071  
+2024/06/02 16:40:33 - mmengine - INFO - Epoch(val) [4][ 800/2476]    eta: 0:00:38  time: 0.0241  data_time: 0.0037  memory: 1133  
+2024/06/02 16:40:38 - mmengine - INFO - Epoch(val) [4][1000/2476]    eta: 0:00:33  time: 0.0225  data_time: 0.0034  memory: 1133  
+2024/06/02 16:40:42 - mmengine - INFO - Epoch(val) [4][1200/2476]    eta: 0:00:29  time: 0.0226  data_time: 0.0036  memory: 1071  
+2024/06/02 16:40:47 - mmengine - INFO - Epoch(val) [4][1400/2476]    eta: 0:00:24  time: 0.0232  data_time: 0.0035  memory: 1133  
+2024/06/02 16:40:51 - mmengine - INFO - Epoch(val) [4][1600/2476]    eta: 0:00:20  time: 0.0244  data_time: 0.0037  memory: 1133  
+2024/06/02 16:40:56 - mmengine - INFO - Epoch(val) [4][1800/2476]    eta: 0:00:15  time: 0.0231  data_time: 0.0034  memory: 1071  
+2024/06/02 16:41:00 - mmengine - INFO - Epoch(val) [4][2000/2476]    eta: 0:00:10  time: 0.0227  data_time: 0.0035  memory: 1133  
+2024/06/02 16:41:05 - mmengine - INFO - Epoch(val) [4][2200/2476]    eta: 0:00:06  time: 0.0223  data_time: 0.0036  memory: 1112  
+2024/06/02 16:41:10 - mmengine - INFO - Epoch(val) [4][2400/2476]    eta: 0:00:01  time: 0.0235  data_time: 0.0039  memory: 1133  
+2024/06/02 16:41:12 - mmengine - INFO - 
+---------------iou_thr: 0.5---------------
+2024/06/02 16:41:14 - mmengine - INFO - 
++-------------+------+-------+--------+-------+
+| class       | gts  | dets  | recall | ap    |
++-------------+------+-------+--------+-------+
+| aeroplane   | 285  | 4538  | 0.712  | 0.402 |
+| bicycle     | 337  | 5879  | 0.878  | 0.501 |
+| bird        | 459  | 6009  | 0.813  | 0.528 |
+| boat        | 263  | 9519  | 0.658  | 0.169 |
+| bottle      | 469  | 7928  | 0.533  | 0.253 |
+| bus         | 213  | 3381  | 0.869  | 0.411 |
+| car         | 1201 | 11989 | 0.835  | 0.653 |
+| cat         | 358  | 3113  | 0.891  | 0.541 |
+| chair       | 756  | 17387 | 0.831  | 0.446 |
+| cow         | 244  | 2479  | 0.840  | 0.226 |
+| diningtable | 206  | 5073  | 0.801  | 0.223 |
+| dog         | 489  | 4433  | 0.935  | 0.426 |
+| horse       | 348  | 2703  | 0.894  | 0.577 |
+| motorbike   | 325  | 4175  | 0.806  | 0.422 |
+| person      | 4528 | 21648 | 0.840  | 0.678 |
+| pottedplant | 480  | 13451 | 0.627  | 0.206 |
+| sheep       | 242  | 4266  | 0.777  | 0.248 |
+| sofa        | 239  | 4821  | 0.891  | 0.463 |
+| train       | 282  | 3273  | 0.833  | 0.412 |
+| tvmonitor   | 308  | 5278  | 0.802  | 0.548 |
++-------------+------+-------+--------+-------+
+| mAP         |      |       |        | 0.417 |
++-------------+------+-------+--------+-------+
+2024/06/02 16:41:15 - mmengine - INFO - Epoch(val) [4][2476/2476]    pascal_voc/mAP: 0.4166  pascal_voc/AP50: 0.4170  data_time: 0.0036  time: 0.0229
+2024/06/02 16:41:27 - mmengine - INFO - Epoch(train) [5][ 200/8276]  lr: 1.0000e-06  eta: 0:17:58  time: 0.0648  data_time: 0.0043  memory: 3222  grad_norm: 657.8131  loss: 36.7402  loss_cls: 8.7655  loss_conf: 15.4577  loss_xy: 11.8247  loss_wh: 0.6923
+2024/06/02 16:41:41 - mmengine - INFO - Epoch(train) [5][ 400/8276]  lr: 1.0000e-06  eta: 0:17:45  time: 0.0673  data_time: 0.0046  memory: 3222  grad_norm: 650.8294  loss: 35.4714  loss_cls: 8.0062  loss_conf: 14.2948  loss_xy: 12.4104  loss_wh: 0.7601
+2024/06/02 16:41:53 - mmengine - INFO - Epoch(train) [5][ 600/8276]  lr: 1.0000e-06  eta: 0:17:31  time: 0.0637  data_time: 0.0042  memory: 3222  grad_norm: 594.5192  loss: 30.6565  loss_cls: 6.8197  loss_conf: 12.0648  loss_xy: 11.2771  loss_wh: 0.4950
+2024/06/02 16:42:06 - mmengine - INFO - Epoch(train) [5][ 800/8276]  lr: 1.0000e-06  eta: 0:17:18  time: 0.0660  data_time: 0.0049  memory: 3222  grad_norm: 640.6943  loss: 34.5003  loss_cls: 7.5695  loss_conf: 14.1258  loss_xy: 12.1460  loss_wh: 0.6589
+2024/06/02 16:42:13 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:42:20 - mmengine - INFO - Epoch(train) [5][1000/8276]  lr: 1.0000e-06  eta: 0:17:05  time: 0.0666  data_time: 0.0046  memory: 3197  grad_norm: 727.1666  loss: 36.2333  loss_cls: 7.8118  loss_conf: 15.1224  loss_xy: 12.5959  loss_wh: 0.7032
+2024/06/02 16:42:33 - mmengine - INFO - Epoch(train) [5][1200/8276]  lr: 1.0000e-06  eta: 0:16:52  time: 0.0636  data_time: 0.0042  memory: 3222  grad_norm: 724.2686  loss: 38.2764  loss_cls: 8.4537  loss_conf: 16.6044  loss_xy: 12.5663  loss_wh: 0.6519
+2024/06/02 16:42:46 - mmengine - INFO - Epoch(train) [5][1400/8276]  lr: 1.0000e-06  eta: 0:16:38  time: 0.0650  data_time: 0.0043  memory: 3222  grad_norm: 695.9261  loss: 40.7737  loss_cls: 9.5915  loss_conf: 17.0083  loss_xy: 13.2173  loss_wh: 0.9567
+2024/06/02 16:42:59 - mmengine - INFO - Epoch(train) [5][1600/8276]  lr: 1.0000e-06  eta: 0:16:25  time: 0.0652  data_time: 0.0045  memory: 3222  grad_norm: 638.8897  loss: 36.8158  loss_cls: 8.5661  loss_conf: 15.3314  loss_xy: 12.2174  loss_wh: 0.7009
+2024/06/02 16:43:12 - mmengine - INFO - Epoch(train) [5][1800/8276]  lr: 1.0000e-06  eta: 0:16:12  time: 0.0669  data_time: 0.0046  memory: 3222  grad_norm: 670.3317  loss: 39.2910  loss_cls: 9.3013  loss_conf: 16.1094  loss_xy: 13.2521  loss_wh: 0.6281
+2024/06/02 16:43:19 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:43:26 - mmengine - INFO - Epoch(train) [5][2000/8276]  lr: 1.0000e-06  eta: 0:15:59  time: 0.0663  data_time: 0.0047  memory: 3222  grad_norm: 611.5633  loss: 34.0534  loss_cls: 7.0562  loss_conf: 14.6776  loss_xy: 11.7367  loss_wh: 0.5829
+2024/06/02 16:43:39 - mmengine - INFO - Epoch(train) [5][2200/8276]  lr: 1.0000e-06  eta: 0:15:46  time: 0.0638  data_time: 0.0042  memory: 3222  grad_norm: 656.7493  loss: 32.3933  loss_cls: 7.0130  loss_conf: 13.6046  loss_xy: 11.1752  loss_wh: 0.6005
+2024/06/02 16:43:52 - mmengine - INFO - Epoch(train) [5][2400/8276]  lr: 1.0000e-06  eta: 0:15:33  time: 0.0664  data_time: 0.0046  memory: 3222  grad_norm: 628.4520  loss: 32.7278  loss_cls: 7.1102  loss_conf: 13.6528  loss_xy: 11.4013  loss_wh: 0.5635
+2024/06/02 16:44:05 - mmengine - INFO - Epoch(train) [5][2600/8276]  lr: 1.0000e-06  eta: 0:15:19  time: 0.0677  data_time: 0.0047  memory: 3222  grad_norm: 675.9885  loss: 34.1764  loss_cls: 7.1275  loss_conf: 14.7142  loss_xy: 11.8090  loss_wh: 0.5257
+2024/06/02 16:44:19 - mmengine - INFO - Epoch(train) [5][2800/8276]  lr: 1.0000e-06  eta: 0:15:06  time: 0.0682  data_time: 0.0046  memory: 3222  grad_norm: 625.8405  loss: 30.8863  loss_cls: 5.8415  loss_conf: 13.6585  loss_xy: 10.8055  loss_wh: 0.5808
+2024/06/02 16:44:25 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:44:32 - mmengine - INFO - Epoch(train) [5][3000/8276]  lr: 1.0000e-06  eta: 0:14:53  time: 0.0663  data_time: 0.0045  memory: 3197  grad_norm: 642.9557  loss: 36.6665  loss_cls: 8.6098  loss_conf: 14.9314  loss_xy: 12.4589  loss_wh: 0.6664
+2024/06/02 16:44:45 - mmengine - INFO - Epoch(train) [5][3200/8276]  lr: 1.0000e-06  eta: 0:14:40  time: 0.0686  data_time: 0.0045  memory: 3222  grad_norm: 636.4940  loss: 32.4463  loss_cls: 7.1400  loss_conf: 13.0976  loss_xy: 11.5636  loss_wh: 0.6450
+2024/06/02 16:44:59 - mmengine - INFO - Epoch(train) [5][3400/8276]  lr: 1.0000e-06  eta: 0:14:27  time: 0.0663  data_time: 0.0046  memory: 3222  grad_norm: 604.7139  loss: 30.8114  loss_cls: 6.9239  loss_conf: 12.1647  loss_xy: 11.1619  loss_wh: 0.5608
+2024/06/02 16:45:12 - mmengine - INFO - Epoch(train) [5][3600/8276]  lr: 1.0000e-06  eta: 0:14:14  time: 0.0670  data_time: 0.0046  memory: 3222  grad_norm: 672.0626  loss: 35.9710  loss_cls: 7.7469  loss_conf: 14.5601  loss_xy: 13.0022  loss_wh: 0.6618
+2024/06/02 16:45:25 - mmengine - INFO - Epoch(train) [5][3800/8276]  lr: 1.0000e-06  eta: 0:14:01  time: 0.0668  data_time: 0.0046  memory: 3222  grad_norm: 650.6481  loss: 36.7417  loss_cls: 8.5386  loss_conf: 14.9550  loss_xy: 12.6213  loss_wh: 0.6268
+2024/06/02 16:45:32 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:45:38 - mmengine - INFO - Epoch(train) [5][4000/8276]  lr: 1.0000e-06  eta: 0:13:47  time: 0.0657  data_time: 0.0045  memory: 3222  grad_norm: 631.1752  loss: 32.4522  loss_cls: 6.9819  loss_conf: 13.2737  loss_xy: 11.5705  loss_wh: 0.6261
+2024/06/02 16:45:52 - mmengine - INFO - Epoch(train) [5][4200/8276]  lr: 1.0000e-06  eta: 0:13:34  time: 0.0664  data_time: 0.0046  memory: 3222  grad_norm: 560.6041  loss: 29.0969  loss_cls: 6.9539  loss_conf: 12.1363  loss_xy: 9.5808  loss_wh: 0.4259
+2024/06/02 16:46:05 - mmengine - INFO - Epoch(train) [5][4400/8276]  lr: 1.0000e-06  eta: 0:13:21  time: 0.0659  data_time: 0.0046  memory: 3222  grad_norm: 723.0580  loss: 41.5835  loss_cls: 9.0681  loss_conf: 18.0196  loss_xy: 13.7540  loss_wh: 0.7418
+2024/06/02 16:46:18 - mmengine - INFO - Epoch(train) [5][4600/8276]  lr: 1.0000e-06  eta: 0:13:08  time: 0.0680  data_time: 0.0046  memory: 3197  grad_norm: 625.9363  loss: 29.6247  loss_cls: 6.6623  loss_conf: 11.8833  loss_xy: 10.5763  loss_wh: 0.5027
+2024/06/02 16:46:32 - mmengine - INFO - Epoch(train) [5][4800/8276]  lr: 1.0000e-06  eta: 0:12:55  time: 0.0671  data_time: 0.0047  memory: 3222  grad_norm: 715.9580  loss: 40.6868  loss_cls: 8.0520  loss_conf: 17.7188  loss_xy: 14.3187  loss_wh: 0.5974
+2024/06/02 16:46:38 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:46:45 - mmengine - INFO - Epoch(train) [5][5000/8276]  lr: 1.0000e-06  eta: 0:12:42  time: 0.0669  data_time: 0.0044  memory: 3197  grad_norm: 585.3143  loss: 28.0700  loss_cls: 6.0251  loss_conf: 11.5055  loss_xy: 10.0218  loss_wh: 0.5176
+2024/06/02 16:46:58 - mmengine - INFO - Epoch(train) [5][5200/8276]  lr: 1.0000e-06  eta: 0:12:28  time: 0.0626  data_time: 0.0042  memory: 3222  grad_norm: 629.6264  loss: 34.0812  loss_cls: 7.3221  loss_conf: 14.5503  loss_xy: 11.5797  loss_wh: 0.6291
+2024/06/02 16:47:11 - mmengine - INFO - Epoch(train) [5][5400/8276]  lr: 1.0000e-06  eta: 0:12:15  time: 0.0628  data_time: 0.0043  memory: 3222  grad_norm: 597.5316  loss: 28.3105  loss_cls: 5.6472  loss_conf: 11.6215  loss_xy: 10.4735  loss_wh: 0.5683
+2024/06/02 16:47:24 - mmengine - INFO - Epoch(train) [5][5600/8276]  lr: 1.0000e-06  eta: 0:12:02  time: 0.0643  data_time: 0.0043  memory: 3222  grad_norm: 670.1338  loss: 36.8188  loss_cls: 8.3111  loss_conf: 14.8367  loss_xy: 13.0104  loss_wh: 0.6606
+2024/06/02 16:47:37 - mmengine - INFO - Epoch(train) [5][5800/8276]  lr: 1.0000e-06  eta: 0:11:48  time: 0.0663  data_time: 0.0045  memory: 3222  grad_norm: 667.0226  loss: 36.1476  loss_cls: 8.0343  loss_conf: 14.5178  loss_xy: 13.0144  loss_wh: 0.5811
+2024/06/02 16:47:43 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:47:50 - mmengine - INFO - Epoch(train) [5][6000/8276]  lr: 1.0000e-06  eta: 0:11:35  time: 0.0670  data_time: 0.0045  memory: 3222  grad_norm: 704.3640  loss: 39.4527  loss_cls: 8.2364  loss_conf: 16.6700  loss_xy: 13.7825  loss_wh: 0.7639
+2024/06/02 16:48:03 - mmengine - INFO - Epoch(train) [5][6200/8276]  lr: 1.0000e-06  eta: 0:11:22  time: 0.0660  data_time: 0.0047  memory: 3222  grad_norm: 639.3501  loss: 32.3757  loss_cls: 6.5790  loss_conf: 13.7600  loss_xy: 11.5306  loss_wh: 0.5060
+2024/06/02 16:48:17 - mmengine - INFO - Epoch(train) [5][6400/8276]  lr: 1.0000e-06  eta: 0:11:09  time: 0.0664  data_time: 0.0047  memory: 3222  grad_norm: 662.6959  loss: 34.6375  loss_cls: 8.0755  loss_conf: 14.4076  loss_xy: 11.6060  loss_wh: 0.5483
+2024/06/02 16:48:30 - mmengine - INFO - Epoch(train) [5][6600/8276]  lr: 1.0000e-06  eta: 0:10:56  time: 0.0665  data_time: 0.0046  memory: 3197  grad_norm: 662.3394  loss: 34.5652  loss_cls: 7.4251  loss_conf: 14.8493  loss_xy: 11.7016  loss_wh: 0.5891
+2024/06/02 16:48:43 - mmengine - INFO - Epoch(train) [5][6800/8276]  lr: 1.0000e-06  eta: 0:10:43  time: 0.0653  data_time: 0.0045  memory: 3197  grad_norm: 598.0890  loss: 31.9286  loss_cls: 7.0529  loss_conf: 12.3937  loss_xy: 11.9314  loss_wh: 0.5506
+2024/06/02 16:48:49 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:48:56 - mmengine - INFO - Epoch(train) [5][7000/8276]  lr: 1.0000e-06  eta: 0:10:29  time: 0.0655  data_time: 0.0046  memory: 3222  grad_norm: 660.8288  loss: 36.2881  loss_cls: 7.8261  loss_conf: 15.2764  loss_xy: 12.4840  loss_wh: 0.7016
+2024/06/02 16:49:09 - mmengine - INFO - Epoch(train) [5][7200/8276]  lr: 1.0000e-06  eta: 0:10:16  time: 0.0640  data_time: 0.0042  memory: 3222  grad_norm: 599.1948  loss: 30.8056  loss_cls: 6.0862  loss_conf: 13.5925  loss_xy: 10.5852  loss_wh: 0.5417
+2024/06/02 16:49:22 - mmengine - INFO - Epoch(train) [5][7400/8276]  lr: 1.0000e-06  eta: 0:10:03  time: 0.0663  data_time: 0.0046  memory: 3222  grad_norm: 612.9710  loss: 30.9527  loss_cls: 6.5165  loss_conf: 12.7433  loss_xy: 11.2384  loss_wh: 0.4544
+2024/06/02 16:49:36 - mmengine - INFO - Epoch(train) [5][7600/8276]  lr: 1.0000e-06  eta: 0:09:50  time: 0.0661  data_time: 0.0047  memory: 3222  grad_norm: 591.9520  loss: 30.4691  loss_cls: 6.7270  loss_conf: 12.5434  loss_xy: 10.6041  loss_wh: 0.5945
+2024/06/02 16:49:49 - mmengine - INFO - Epoch(train) [5][7800/8276]  lr: 1.0000e-06  eta: 0:09:37  time: 0.0708  data_time: 0.0047  memory: 3222  grad_norm: 602.1864  loss: 33.0498  loss_cls: 7.3313  loss_conf: 13.5330  loss_xy: 11.5845  loss_wh: 0.6009
+2024/06/02 16:49:56 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:50:03 - mmengine - INFO - Epoch(train) [5][8000/8276]  lr: 1.0000e-06  eta: 0:09:24  time: 0.0660  data_time: 0.0045  memory: 3222  grad_norm: 664.6006  loss: 35.7746  loss_cls: 7.5317  loss_conf: 15.3012  loss_xy: 11.9218  loss_wh: 1.0198
+2024/06/02 16:50:16 - mmengine - INFO - Epoch(train) [5][8200/8276]  lr: 1.0000e-06  eta: 0:09:10  time: 0.0661  data_time: 0.0046  memory: 3222  grad_norm: 652.7193  loss: 33.0590  loss_cls: 7.1452  loss_conf: 13.5836  loss_xy: 11.7896  loss_wh: 0.5406
+2024/06/02 16:50:21 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:50:21 - mmengine - INFO - Saving checkpoint at 5 epochs
+2024/06/02 16:50:28 - mmengine - INFO - Epoch(val) [5][ 200/2476]    eta: 0:00:51  time: 0.0223  data_time: 0.0036  memory: 3222  
+2024/06/02 16:50:32 - mmengine - INFO - Epoch(val) [5][ 400/2476]    eta: 0:00:48  time: 0.0226  data_time: 0.0035  memory: 1133  
+2024/06/02 16:50:37 - mmengine - INFO - Epoch(val) [5][ 600/2476]    eta: 0:00:43  time: 0.0240  data_time: 0.0037  memory: 1071  
+2024/06/02 16:50:42 - mmengine - INFO - Epoch(val) [5][ 800/2476]    eta: 0:00:39  time: 0.0228  data_time: 0.0035  memory: 1133  
+2024/06/02 16:50:46 - mmengine - INFO - Epoch(val) [5][1000/2476]    eta: 0:00:34  time: 0.0228  data_time: 0.0033  memory: 1133  
+2024/06/02 16:50:51 - mmengine - INFO - Epoch(val) [5][1200/2476]    eta: 0:00:29  time: 0.0242  data_time: 0.0038  memory: 1071  
+2024/06/02 16:50:55 - mmengine - INFO - Epoch(val) [5][1400/2476]    eta: 0:00:24  time: 0.0233  data_time: 0.0037  memory: 1133  
+2024/06/02 16:51:00 - mmengine - INFO - Epoch(val) [5][1600/2476]    eta: 0:00:20  time: 0.0229  data_time: 0.0036  memory: 1133  
+2024/06/02 16:51:05 - mmengine - INFO - Epoch(val) [5][1800/2476]    eta: 0:00:15  time: 0.0246  data_time: 0.0039  memory: 1071  
+2024/06/02 16:51:09 - mmengine - INFO - Epoch(val) [5][2000/2476]    eta: 0:00:11  time: 0.0231  data_time: 0.0036  memory: 1133  
+2024/06/02 16:51:14 - mmengine - INFO - Epoch(val) [5][2200/2476]    eta: 0:00:06  time: 0.0221  data_time: 0.0034  memory: 1112  
+2024/06/02 16:51:18 - mmengine - INFO - Epoch(val) [5][2400/2476]    eta: 0:00:01  time: 0.0222  data_time: 0.0035  memory: 1133  
+2024/06/02 16:51:20 - mmengine - INFO - 
+---------------iou_thr: 0.5---------------
+2024/06/02 16:51:23 - mmengine - INFO - 
++-------------+------+-------+--------+-------+
+| class       | gts  | dets  | recall | ap    |
++-------------+------+-------+--------+-------+
+| aeroplane   | 285  | 3643  | 0.698  | 0.407 |
+| bicycle     | 337  | 5812  | 0.878  | 0.487 |
+| bird        | 459  | 6209  | 0.824  | 0.532 |
+| boat        | 263  | 9023  | 0.669  | 0.176 |
+| bottle      | 469  | 8473  | 0.539  | 0.264 |
+| bus         | 213  | 3006  | 0.869  | 0.391 |
+| car         | 1201 | 10263 | 0.844  | 0.672 |
+| cat         | 358  | 3025  | 0.894  | 0.553 |
+| chair       | 756  | 17455 | 0.815  | 0.441 |
+| cow         | 244  | 2559  | 0.836  | 0.239 |
+| diningtable | 206  | 4663  | 0.796  | 0.186 |
+| dog         | 489  | 4349  | 0.941  | 0.422 |
+| horse       | 348  | 2692  | 0.891  | 0.554 |
+| motorbike   | 325  | 3799  | 0.806  | 0.428 |
+| person      | 4528 | 21850 | 0.845  | 0.683 |
+| pottedplant | 480  | 13927 | 0.629  | 0.198 |
+| sheep       | 242  | 4236  | 0.793  | 0.249 |
+| sofa        | 239  | 4510  | 0.858  | 0.460 |
+| train       | 282  | 2923  | 0.823  | 0.392 |
+| tvmonitor   | 308  | 5326  | 0.792  | 0.537 |
++-------------+------+-------+--------+-------+
+| mAP         |      |       |        | 0.414 |
++-------------+------+-------+--------+-------+
+2024/06/02 16:51:23 - mmengine - INFO - Epoch(val) [5][2476/2476]    pascal_voc/mAP: 0.4136  pascal_voc/AP50: 0.4140  data_time: 0.0036  time: 0.0230
+2024/06/02 16:51:36 - mmengine - INFO - Epoch(train) [6][ 200/8276]  lr: 1.0000e-07  eta: 0:08:52  time: 0.0640  data_time: 0.0041  memory: 3222  grad_norm: 639.4308  loss: 32.0824  loss_cls: 7.4206  loss_conf: 12.8910  loss_xy: 11.0618  loss_wh: 0.7090
+2024/06/02 16:51:49 - mmengine - INFO - Epoch(train) [6][ 400/8276]  lr: 1.0000e-07  eta: 0:08:39  time: 0.0665  data_time: 0.0047  memory: 3222  grad_norm: 638.3615  loss: 30.4544  loss_cls: 6.5126  loss_conf: 12.6783  loss_xy: 10.7072  loss_wh: 0.5563
+2024/06/02 16:52:03 - mmengine - INFO - Epoch(train) [6][ 600/8276]  lr: 1.0000e-07  eta: 0:08:26  time: 0.0666  data_time: 0.0045  memory: 3222  grad_norm: 639.3856  loss: 36.0321  loss_cls: 7.8684  loss_conf: 15.1412  loss_xy: 12.3336  loss_wh: 0.6888
+2024/06/02 16:52:04 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:52:16 - mmengine - INFO - Epoch(train) [6][ 800/8276]  lr: 1.0000e-07  eta: 0:08:13  time: 0.0660  data_time: 0.0046  memory: 3222  grad_norm: 667.5871  loss: 33.2806  loss_cls: 6.5110  loss_conf: 13.9607  loss_xy: 12.1808  loss_wh: 0.6281
+2024/06/02 16:52:29 - mmengine - INFO - Epoch(train) [6][1000/8276]  lr: 1.0000e-07  eta: 0:07:59  time: 0.0632  data_time: 0.0041  memory: 3222  grad_norm: 636.0364  loss: 32.3923  loss_cls: 7.2598  loss_conf: 13.2542  loss_xy: 11.2133  loss_wh: 0.6650
+2024/06/02 16:52:42 - mmengine - INFO - Epoch(train) [6][1200/8276]  lr: 1.0000e-07  eta: 0:07:46  time: 0.0687  data_time: 0.0048  memory: 3222  grad_norm: 641.8291  loss: 34.2234  loss_cls: 6.3327  loss_conf: 14.8124  loss_xy: 12.3149  loss_wh: 0.7634
+2024/06/02 16:52:55 - mmengine - INFO - Epoch(train) [6][1400/8276]  lr: 1.0000e-07  eta: 0:07:33  time: 0.0655  data_time: 0.0046  memory: 3222  grad_norm: 627.0511  loss: 35.3659  loss_cls: 7.8442  loss_conf: 14.5582  loss_xy: 12.2734  loss_wh: 0.6901
+2024/06/02 16:53:09 - mmengine - INFO - Epoch(train) [6][1600/8276]  lr: 1.0000e-07  eta: 0:07:20  time: 0.0659  data_time: 0.0047  memory: 3222  grad_norm: 586.2931  loss: 35.2623  loss_cls: 7.8442  loss_conf: 14.4085  loss_xy: 12.4595  loss_wh: 0.5502
+2024/06/02 16:53:10 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:53:22 - mmengine - INFO - Epoch(train) [6][1800/8276]  lr: 1.0000e-07  eta: 0:07:07  time: 0.0673  data_time: 0.0047  memory: 3222  grad_norm: 701.3923  loss: 34.5647  loss_cls: 7.6435  loss_conf: 14.5623  loss_xy: 11.7331  loss_wh: 0.6258
+2024/06/02 16:53:35 - mmengine - INFO - Epoch(train) [6][2000/8276]  lr: 1.0000e-07  eta: 0:06:53  time: 0.0645  data_time: 0.0043  memory: 3222  grad_norm: 629.0864  loss: 33.2884  loss_cls: 7.5934  loss_conf: 13.6921  loss_xy: 11.3323  loss_wh: 0.6706
+2024/06/02 16:53:48 - mmengine - INFO - Epoch(train) [6][2200/8276]  lr: 1.0000e-07  eta: 0:06:40  time: 0.0667  data_time: 0.0046  memory: 3197  grad_norm: 612.9064  loss: 31.9866  loss_cls: 7.3829  loss_conf: 13.2076  loss_xy: 10.9268  loss_wh: 0.4692
+2024/06/02 16:54:02 - mmengine - INFO - Epoch(train) [6][2400/8276]  lr: 1.0000e-07  eta: 0:06:27  time: 0.0680  data_time: 0.0047  memory: 3222  grad_norm: 636.5671  loss: 31.9443  loss_cls: 6.7029  loss_conf: 13.1840  loss_xy: 11.5385  loss_wh: 0.5189
+2024/06/02 16:54:15 - mmengine - INFO - Epoch(train) [6][2600/8276]  lr: 1.0000e-07  eta: 0:06:14  time: 0.0672  data_time: 0.0046  memory: 3222  grad_norm: 618.7828  loss: 33.6061  loss_cls: 6.7166  loss_conf: 14.4922  loss_xy: 11.7539  loss_wh: 0.6434
+2024/06/02 16:54:17 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:54:29 - mmengine - INFO - Epoch(train) [6][2800/8276]  lr: 1.0000e-07  eta: 0:06:01  time: 0.0663  data_time: 0.0046  memory: 3222  grad_norm: 637.8100  loss: 33.7911  loss_cls: 7.0436  loss_conf: 14.0695  loss_xy: 12.0958  loss_wh: 0.5822
+2024/06/02 16:54:42 - mmengine - INFO - Epoch(train) [6][3000/8276]  lr: 1.0000e-07  eta: 0:05:48  time: 0.0669  data_time: 0.0046  memory: 3222  grad_norm: 700.0110  loss: 37.6221  loss_cls: 9.2756  loss_conf: 14.6397  loss_xy: 13.0043  loss_wh: 0.7025
+2024/06/02 16:54:55 - mmengine - INFO - Epoch(train) [6][3200/8276]  lr: 1.0000e-07  eta: 0:05:34  time: 0.0635  data_time: 0.0044  memory: 3222  grad_norm: 642.1478  loss: 34.1158  loss_cls: 8.3422  loss_conf: 13.3651  loss_xy: 11.8123  loss_wh: 0.5961
+2024/06/02 16:55:08 - mmengine - INFO - Epoch(train) [6][3400/8276]  lr: 1.0000e-07  eta: 0:05:21  time: 0.0663  data_time: 0.0047  memory: 3197  grad_norm: 664.5604  loss: 35.3180  loss_cls: 7.3135  loss_conf: 14.7738  loss_xy: 12.4970  loss_wh: 0.7337
+2024/06/02 16:55:21 - mmengine - INFO - Epoch(train) [6][3600/8276]  lr: 1.0000e-07  eta: 0:05:08  time: 0.0671  data_time: 0.0047  memory: 3222  grad_norm: 818.1244  loss: 51.7948  loss_cls: 12.4401  loss_conf: 21.9943  loss_xy: 16.3808  loss_wh: 0.9796
+2024/06/02 16:55:22 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:55:34 - mmengine - INFO - Epoch(train) [6][3800/8276]  lr: 1.0000e-07  eta: 0:04:55  time: 0.0673  data_time: 0.0047  memory: 3222  grad_norm: 646.5104  loss: 35.6132  loss_cls: 7.7306  loss_conf: 15.1057  loss_xy: 12.1774  loss_wh: 0.5994
+2024/06/02 16:55:48 - mmengine - INFO - Epoch(train) [6][4000/8276]  lr: 1.0000e-07  eta: 0:04:42  time: 0.0676  data_time: 0.0046  memory: 3222  grad_norm: 591.7760  loss: 30.8678  loss_cls: 6.6557  loss_conf: 12.6078  loss_xy: 11.0949  loss_wh: 0.5094
+2024/06/02 16:56:01 - mmengine - INFO - Epoch(train) [6][4200/8276]  lr: 1.0000e-07  eta: 0:04:28  time: 0.0670  data_time: 0.0047  memory: 3222  grad_norm: 594.2861  loss: 28.8008  loss_cls: 6.1323  loss_conf: 11.7482  loss_xy: 10.4311  loss_wh: 0.4892
+2024/06/02 16:56:15 - mmengine - INFO - Epoch(train) [6][4400/8276]  lr: 1.0000e-07  eta: 0:04:15  time: 0.0659  data_time: 0.0048  memory: 3222  grad_norm: 657.5610  loss: 34.0193  loss_cls: 7.2548  loss_conf: 13.8206  loss_xy: 12.4070  loss_wh: 0.5369
+2024/06/02 16:56:28 - mmengine - INFO - Epoch(train) [6][4600/8276]  lr: 1.0000e-07  eta: 0:04:02  time: 0.0664  data_time: 0.0047  memory: 3222  grad_norm: 699.9410  loss: 37.8618  loss_cls: 8.6829  loss_conf: 15.6547  loss_xy: 12.7031  loss_wh: 0.8211
+2024/06/02 16:56:29 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:56:41 - mmengine - INFO - Epoch(train) [6][4800/8276]  lr: 1.0000e-07  eta: 0:03:49  time: 0.0657  data_time: 0.0046  memory: 3222  grad_norm: 642.3450  loss: 35.0009  loss_cls: 8.2712  loss_conf: 14.4126  loss_xy: 11.6697  loss_wh: 0.6475
+2024/06/02 16:56:55 - mmengine - INFO - Epoch(train) [6][5000/8276]  lr: 1.0000e-07  eta: 0:03:36  time: 0.0673  data_time: 0.0047  memory: 3222  grad_norm: 665.8814  loss: 34.8847  loss_cls: 7.4649  loss_conf: 14.5954  loss_xy: 12.1268  loss_wh: 0.6977
+2024/06/02 16:57:08 - mmengine - INFO - Epoch(train) [6][5200/8276]  lr: 1.0000e-07  eta: 0:03:22  time: 0.0658  data_time: 0.0045  memory: 3222  grad_norm: 674.5177  loss: 41.9423  loss_cls: 9.5788  loss_conf: 18.7411  loss_xy: 12.8971  loss_wh: 0.7253
+2024/06/02 16:57:21 - mmengine - INFO - Epoch(train) [6][5400/8276]  lr: 1.0000e-07  eta: 0:03:09  time: 0.0660  data_time: 0.0047  memory: 3197  grad_norm: 741.1938  loss: 44.4795  loss_cls: 9.4407  loss_conf: 19.1272  loss_xy: 15.1512  loss_wh: 0.7604
+2024/06/02 16:57:34 - mmengine - INFO - Epoch(train) [6][5600/8276]  lr: 1.0000e-07  eta: 0:02:56  time: 0.0662  data_time: 0.0046  memory: 3222  grad_norm: 692.0430  loss: 37.6301  loss_cls: 8.1971  loss_conf: 15.6253  loss_xy: 12.9577  loss_wh: 0.8501
+2024/06/02 16:57:35 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:57:48 - mmengine - INFO - Epoch(train) [6][5800/8276]  lr: 1.0000e-07  eta: 0:02:43  time: 0.0679  data_time: 0.0046  memory: 3222  grad_norm: 657.2495  loss: 34.0433  loss_cls: 7.4043  loss_conf: 14.5479  loss_xy: 11.5830  loss_wh: 0.5080
+2024/06/02 16:58:01 - mmengine - INFO - Epoch(train) [6][6000/8276]  lr: 1.0000e-07  eta: 0:02:30  time: 0.0653  data_time: 0.0043  memory: 3222  grad_norm: 617.2220  loss: 30.2748  loss_cls: 5.9699  loss_conf: 12.3151  loss_xy: 11.4358  loss_wh: 0.5540
+2024/06/02 16:58:14 - mmengine - INFO - Epoch(train) [6][6200/8276]  lr: 1.0000e-07  eta: 0:02:17  time: 0.0682  data_time: 0.0047  memory: 3222  grad_norm: 559.0709  loss: 28.4232  loss_cls: 6.2287  loss_conf: 11.5652  loss_xy: 10.0828  loss_wh: 0.5466
+2024/06/02 16:58:28 - mmengine - INFO - Epoch(train) [6][6400/8276]  lr: 1.0000e-07  eta: 0:02:03  time: 0.0666  data_time: 0.0048  memory: 3222  grad_norm: 654.3099  loss: 36.3351  loss_cls: 9.1369  loss_conf: 13.9787  loss_xy: 12.5498  loss_wh: 0.6697
+2024/06/02 16:58:41 - mmengine - INFO - Epoch(train) [6][6600/8276]  lr: 1.0000e-07  eta: 0:01:50  time: 0.0657  data_time: 0.0048  memory: 3222  grad_norm: 637.1023  loss: 36.8292  loss_cls: 9.3390  loss_conf: 14.6099  loss_xy: 12.3387  loss_wh: 0.5417
+2024/06/02 16:58:42 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 16:58:54 - mmengine - INFO - Epoch(train) [6][6800/8276]  lr: 1.0000e-07  eta: 0:01:37  time: 0.0663  data_time: 0.0047  memory: 3197  grad_norm: 662.3331  loss: 35.3245  loss_cls: 6.7131  loss_conf: 14.9261  loss_xy: 13.1554  loss_wh: 0.5298
+2024/06/02 16:59:07 - mmengine - INFO - Epoch(train) [6][7000/8276]  lr: 1.0000e-07  eta: 0:01:24  time: 0.0673  data_time: 0.0047  memory: 3222  grad_norm: 636.6196  loss: 31.8151  loss_cls: 6.1347  loss_conf: 13.8565  loss_xy: 11.3560  loss_wh: 0.4679
+2024/06/02 16:59:20 - mmengine - INFO - Epoch(train) [6][7200/8276]  lr: 1.0000e-07  eta: 0:01:11  time: 0.0637  data_time: 0.0042  memory: 3222  grad_norm: 612.9965  loss: 29.2831  loss_cls: 6.5567  loss_conf: 11.5019  loss_xy: 10.7610  loss_wh: 0.4635
+2024/06/02 16:59:34 - mmengine - INFO - Epoch(train) [6][7400/8276]  lr: 1.0000e-07  eta: 0:00:57  time: 0.0683  data_time: 0.0046  memory: 3222  grad_norm: 670.0531  loss: 36.4617  loss_cls: 8.4510  loss_conf: 15.4130  loss_xy: 11.9950  loss_wh: 0.6026
+2024/06/02 16:59:47 - mmengine - INFO - Epoch(train) [6][7600/8276]  lr: 1.0000e-07  eta: 0:00:44  time: 0.0675  data_time: 0.0048  memory: 3222  grad_norm: 583.4248  loss: 27.6072  loss_cls: 5.4799  loss_conf: 11.7988  loss_xy: 9.8952  loss_wh: 0.4333
+2024/06/02 16:59:48 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 17:00:00 - mmengine - INFO - Epoch(train) [6][7800/8276]  lr: 1.0000e-07  eta: 0:00:31  time: 0.0681  data_time: 0.0047  memory: 3222  grad_norm: 592.7133  loss: 28.9810  loss_cls: 6.3904  loss_conf: 12.0308  loss_xy: 10.1562  loss_wh: 0.4037
+2024/06/02 17:00:13 - mmengine - INFO - Epoch(train) [6][8000/8276]  lr: 1.0000e-07  eta: 0:00:18  time: 0.0634  data_time: 0.0041  memory: 3197  grad_norm: 582.4810  loss: 28.3575  loss_cls: 5.8309  loss_conf: 12.0419  loss_xy: 9.9958  loss_wh: 0.4888
+2024/06/02 17:00:26 - mmengine - INFO - Epoch(train) [6][8200/8276]  lr: 1.0000e-07  eta: 0:00:05  time: 0.0651  data_time: 0.0042  memory: 3222  grad_norm: 630.3634  loss: 33.6773  loss_cls: 7.9878  loss_conf: 13.5069  loss_xy: 11.6629  loss_wh: 0.5196
+2024/06/02 17:00:31 - mmengine - INFO - Exp name: VOC_yolov3_20240602_160030
+2024/06/02 17:00:31 - mmengine - INFO - Saving checkpoint at 6 epochs
+2024/06/02 17:00:37 - mmengine - INFO - Epoch(val) [6][ 200/2476]    eta: 0:00:51  time: 0.0220  data_time: 0.0034  memory: 3222  
+2024/06/02 17:00:42 - mmengine - INFO - Epoch(val) [6][ 400/2476]    eta: 0:00:46  time: 0.0222  data_time: 0.0035  memory: 1133  
+2024/06/02 17:00:46 - mmengine - INFO - Epoch(val) [6][ 600/2476]    eta: 0:00:42  time: 0.0233  data_time: 0.0036  memory: 1071  
+2024/06/02 17:00:51 - mmengine - INFO - Epoch(val) [6][ 800/2476]    eta: 0:00:38  time: 0.0254  data_time: 0.0033  memory: 1133  
+2024/06/02 17:00:56 - mmengine - INFO - Epoch(val) [6][1000/2476]    eta: 0:00:33  time: 0.0227  data_time: 0.0035  memory: 1133  
+2024/06/02 17:01:00 - mmengine - INFO - Epoch(val) [6][1200/2476]    eta: 0:00:28  time: 0.0226  data_time: 0.0035  memory: 1071  
+2024/06/02 17:01:05 - mmengine - INFO - Epoch(val) [6][1400/2476]    eta: 0:00:24  time: 0.0237  data_time: 0.0036  memory: 1133  
+2024/06/02 17:01:10 - mmengine - INFO - Epoch(val) [6][1600/2476]    eta: 0:00:20  time: 0.0239  data_time: 0.0038  memory: 1133  
+2024/06/02 17:01:14 - mmengine - INFO - Epoch(val) [6][1800/2476]    eta: 0:00:15  time: 0.0233  data_time: 0.0037  memory: 1071  
+2024/06/02 17:01:19 - mmengine - INFO - Epoch(val) [6][2000/2476]    eta: 0:00:10  time: 0.0229  data_time: 0.0036  memory: 1133  
+2024/06/02 17:01:23 - mmengine - INFO - Epoch(val) [6][2200/2476]    eta: 0:00:06  time: 0.0219  data_time: 0.0032  memory: 1112  
+2024/06/02 17:01:28 - mmengine - INFO - Epoch(val) [6][2400/2476]    eta: 0:00:01  time: 0.0221  data_time: 0.0033  memory: 1133  
+2024/06/02 17:01:29 - mmengine - INFO - 
+---------------iou_thr: 0.5---------------
+2024/06/02 17:01:32 - mmengine - INFO - 
++-------------+------+-------+--------+-------+
+| class       | gts  | dets  | recall | ap    |
++-------------+------+-------+--------+-------+
+| aeroplane   | 285  | 3811  | 0.698  | 0.401 |
+| bicycle     | 337  | 5167  | 0.872  | 0.501 |
+| bird        | 459  | 5700  | 0.808  | 0.537 |
+| boat        | 263  | 8698  | 0.677  | 0.170 |
+| bottle      | 469  | 7585  | 0.531  | 0.265 |
+| bus         | 213  | 2921  | 0.864  | 0.403 |
+| car         | 1201 | 10513 | 0.838  | 0.673 |
+| cat         | 358  | 2982  | 0.888  | 0.555 |
+| chair       | 756  | 16304 | 0.819  | 0.443 |
+| cow         | 244  | 2393  | 0.820  | 0.230 |
+| diningtable | 206  | 4354  | 0.806  | 0.231 |
+| dog         | 489  | 4217  | 0.928  | 0.434 |
+| horse       | 348  | 2599  | 0.891  | 0.565 |
+| motorbike   | 325  | 3328  | 0.815  | 0.436 |
+| person      | 4528 | 20580 | 0.845  | 0.691 |
+| pottedplant | 480  | 12725 | 0.625  | 0.209 |
+| sheep       | 242  | 4057  | 0.777  | 0.247 |
+| sofa        | 239  | 4277  | 0.883  | 0.461 |
+| train       | 282  | 2884  | 0.833  | 0.408 |
+| tvmonitor   | 308  | 5017  | 0.789  | 0.539 |
++-------------+------+-------+--------+-------+
+| mAP         |      |       |        | 0.420 |
++-------------+------+-------+--------+-------+
+2024/06/02 17:01:32 - mmengine - INFO - Epoch(val) [6][2476/2476]    pascal_voc/mAP: 0.4199  pascal_voc/AP50: 0.4200  data_time: 0.0035  time: 0.0228
