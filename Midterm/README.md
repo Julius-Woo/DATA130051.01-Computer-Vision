@@ -1,6 +1,20 @@
 <h1 align="center">DATA130051.01 Midterm Project</h1>
 <h3 align="center"> Wu Jia'ao  21307130203 </h3>
 
+- [Requirements](#requirements)
+- [Task 1: Fine-tuning ResNet18 on CUB-200-2011](#task-1-fine-tuning-resnet18-on-cub-200-2011)
+  - [Data Preparation](#data-preparation)
+  - [Training the Model](#training-the-model)
+  - [Evaluation](#evaluation)
+  - [Visualization](#visualization)
+- [Task 2: Object Detection on PASCAL VOC](#task-2-object-detection-on-pascal-voc)
+  - [Data Preparation](#data-preparation-1)
+  - [Preliminaries](#preliminaries)
+  - [Model Training](#model-training)
+  - [Evaluation](#evaluation-1)
+  - [Visualization](#visualization-1)
+- [Directory Structure](#directory-structure)
+
 
 ## Requirements
 This project requires Python >= 3.8. See the requirements.txt file for the required packages. You can install them using the following command:
@@ -84,49 +98,49 @@ If you clone the repository and download all the required datasets and weights, 
 
 ```
 Midterm
-├─ CUB_best_weights_ft.pth         Weights for the finetuned ResNet18 model (Task 1)
-├─ CUB_best_weights_scratch.pth    Weights for the scratch ResNet18 model (Task 1)
-├─ CUB_finetune.ipynb              Notebook for finetuning the ResNet18 model (Task 1)
-├─ CUB_load.py                     Script for loading snd reorganizing the CUB dataset (Task 1)
-├─ CUB_200_2001                    CUB Dataset (Task 1)
-├─ figs                            Directory for storing figures
-│  ├─ external_comparison.png      Comparison of model performance on external images (Task 2)
-│  ├─ faster-rcnn                  Faster-RCNN figures (Task 2)
-│  │  ├─ comparison.png            Comparison of proposal and final boxes (Task 2)
-│  │  ├─ external/vis              Faster-RCNN bounding boxes on external images (Task 2)
-│  │  ├─ final/vis                 Final Faster-RCNN bounding boxes on VOC test images (Task 2)
-│  │  └─ proposal                  Proposal boxes for Faster-RCNN on VOC test images (Task 2)
-│  ├─ TensorBoard                  All TensorBoard visualizations
-│  ├─ yolov3/vis                   YOLOV3 bounding boxes on external images (Task 2)
-├─ mmdetection_voc                 Toolkit for object detection (Task 2)
-│  ├─ configs                      Configuration files for Faster-RCNN and YOLOV3
-│  │  ├─ my_configs                Custom configurations for Faster-RCNN and YOLOV3
+├─ CUB_best_weights_ft.pth           Weights for the finetuned ResNet18 model (Task 1)
+├─ CUB_best_weights_scratch.pth      Weights for the scratch ResNet18 model (Task 1)
+├─ CUB_finetune.ipynb                Notebook for finetuning the ResNet18 model (Task 1)
+├─ CUB_load.py                       Script for loading snd reorganizing the CUB dataset (Task 1)
+├─ CUB_200_2001                      CUB Dataset (Task 1)
+├─ figs                              Directory for storing figures
+│  ├─ external_comparison.png        Comparison of model performance on external images (Task 2)
+│  ├─ faster-rcnn                    Faster-RCNN figures (Task 2)
+│  │  ├─ comparison.png              Comparison of proposal and final boxes (Task 2)
+│  │  ├─ external/vis                Faster-RCNN bounding boxes on external images (Task 2)
+│  │  ├─ final/vis                   Final Faster-RCNN bounding boxes on VOC test images (Task 2)
+│  │  └─ proposal                    Proposal boxes for Faster-RCNN on VOC test images (Task 2)
+│  ├─ TensorBoard                    All TensorBoard visualizations
+│  ├─ yolov3/vis                     YOLOV3 bounding boxes on external images (Task 2)
+├─ mmdetection_voc                   Toolkit for object detection (Task 2)
+│  ├─ configs                        Configuration files for Faster-RCNN and YOLOV3
+│  │  ├─ my_configs                  Custom configurations for Faster-RCNN and YOLOV3
 │  │  │  ├─ VOC_faster-rcnn.py
 │  │  │  └─ VOC_yolov3.py
-│  │  └─ _base_                    Base configurations for Faster-RCNN and YOLOV3 (from MMDetection)
+│  │  └─ _base_                      Base configurations for Faster-RCNN and YOLOV3 (from MMDetection)
 │  │     ├─ datasets
 │  │     │  └─ voc0712.py
 │  │     ├─ default_runtime.py
 │  │     └─ models
 │  │        └─ faster-rcnn_r50_fpn.py
-│  ├─ data/VOCdevkit               VOC dataset
+│  ├─ data/VOCdevkit                 VOC dataset
 │  │  ├─ VOC2007
 │  │  └─ VOC2012
-│  ├─ demo                         Demo images for object detection
-│  │  ├─ external                  External images outside the VOC dataset (3 images)
-│  │  └─ from_VOCtest-2007         VOC test images (4 images)
-│  ├─ tools                        Tools for training and testing the models (from MMDetection)
+│  ├─ demo                           Demo images for object detection
+│  │  ├─ external                    External images outside the VOC dataset (3 images)
+│  │  └─ from_VOCtest-2007           VOC test images (4 images)
+│  ├─ tools                          Tools for training and testing the models (from MMDetection)
 │  │  ├─ test.py
 │  │  └─ train.py
-│  └─ work_dirs                    Directory for storing the weights and logs
+│  └─ work_dirs                      Directory for storing the weights and logs
 │     ├─ VOC_faster-rcnn
-│     │  ├─ faster_rcnn.pth        Weights for the Faster-RCNN model
-│     │  └─ VOC_faster-rcnn.py     Script for training the Faster-RCNN model (from MMDetection)
+│     │  ├─ faster_rcnn.pth          Weights for the Faster-RCNN model
+│     │  └─ VOC_faster-rcnn.py       Script for training the Faster-RCNN model (from MMDetection)
 │     └─ VOC_yolov3
-│        ├─ VOC_yolov3.pth         Weights for the YOLOV3 model
-│        └─ VOC_yolov3.py          Script for training the YOLOV3 model (from MMDetection)
-├─ runs                            TensorBoard logs (Task 1)
+│        ├─ VOC_yolov3.pth           Weights for the YOLOV3 model
+│        └─ VOC_yolov3.py            Script for training the YOLOV3 model (from MMDetection)
+├─ runs                              TensorBoard logs (Task 1)
 │  ├─ CUB_bird_classification
 │  └─ CUB_from_scratch
-└─ VOC_MMDetection.ipynb           Notebook for object detection on PASCAL VOC (Task 2)
+└─ VOC_MMDetection.ipynb             Notebook for object detection on PASCAL VOC (Task 2)
 ```
