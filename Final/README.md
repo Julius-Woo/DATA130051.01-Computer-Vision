@@ -9,12 +9,16 @@
   - [Visualization](#visualization)
 - [Task 2: CNN vs. Transformer for Image Classification](#task-2-cnn-vs-transformer-for-image-classification)
   - [Data Preparation](#data-preparation-1)
-  - [Preliminaries](#preliminaries)
   - [Model Training](#model-training)
   - [Evaluation](#evaluation-1)
   - [Visualization](#visualization-1)
 - [Task 3: NeRF: 3D Reconstruction and View Synthesis](#task-3-nerf-3d-reconstruction-and-view-synthesis)
-- [Directory Structure](#directory-structure)
+  - [Data Preparation](#data-preparation-2)
+  - [Model Training](#model-training-1)
+  - [Evaluation](#evaluation-2)
+  - [Visualization](#visualization-2)
+
+
 
 ## Requirements
 
@@ -57,7 +61,7 @@ Then open the `LCP_evaluator.ipynb` notebook, run all the function cells and the
 Run the following command to start the TensorBoard:
 
 ```cmd
-tensorboard --logdir=./runs/
+tensorboard --logdir ./runs/
 ```
 
 Then open the browser and go to `http://localhost:6006/`.
@@ -66,45 +70,65 @@ Then open the browser and go to `http://localhost:6006/`.
 
 ### Data Preparation
 
-Download the PASCAL VOC dataset from [here](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html) for 2007 and [here](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html) for 2012 into the `Midterm` directory.
+Dataset CIFAR-100 is used in this task. You can eitgher:
 
-### Preliminaries
-
-Open the `VOC_MMDetection.ipynb` notebook, run the cell `Install MMDetection` to install the MMDetection toolkit (you can omit the clone step if you have cloned our repository).
-
-Run the cell `Load the VOC dataset` to reorganize the dataset.
+- Download the datasets from [here](https://www.cs.toronto.edu/~kriz/cifar.html) and put it in the `CNN_Transformer/data` directory,
+- Or run the Jupyter Notebook below to download the datasets automatically.
 
 ### Model Training
 
-Run the following commands to train the Faster-RCNN or YOLOV3 model:
-
-```cmd
-!python mmdetection_voc/tools/train.py mmdetection_voc/configs/my_configs/VOC_faster-rcnn.py
-!python mmdetection_voctools/train.py mmdetection_voc/configs/my_configs/VOC_yolov3.py
-```
+Simply open the `CNN_Transformer_formal.ipynb` notebook and run all the cells.
 
 ### Evaluation
 
-First download the weights for the two models from [here](https://pan.baidu.com/s/1O-toY96MSuXnaVT4yOSMvQ?pwd=92wa) and put it in the `mmdetection_voc/work_dirs/VOC_faster-rcnn/` or `mmdetection_voc/work_dirs/VOC_yolov3/` directory.
+First download the weights for the model from [Final/CNN_Transformer/training_results_midmodel/...](https://pan.baidu.com/s/1mjC8PhPnaIVdDaCg3XPOmQ?pwd=cctv) and put it in the `CNN_Transformer/training_results_midmodel` directory.
 
-Then open the `VOC_MMDetection.ipynb` notebook, run all the cells of `Inference`.
+Then open the `CNN_Transformer_formal.ipynb` notebook, run the cell `Evaluation`.
 
 ### Visualization
-
-The visualization of the model performance can be found in the `figs` directory.
 
 Run the following command to start the TensorBoard:
 
 ```cmd
-tensorboard --logdir=./mmdetection_voc/work_dirs/VOC_faster-rcnn/20240602_143856
-tensorboard --logdir=./mmdetection_voc/work_dirs/VOC_yolov3/20240602_160030
+tensorboard --logdir ./training_results_midmodel
 ```
 
 Then open the browser and go to `http://localhost:6006/`.
 
 ## Task 3: NeRF: 3D Reconstruction and View Synthesis
 
+### Data Preparation
 
-## Directory Structure
+First download [Final/NeRF/data](https://pan.baidu.com/s/1mjC8PhPnaIVdDaCg3XPOmQ?pwd=cctv) to the `NeRF/` directory.
 
-If you clone the repository and download all the required datasets and weights, the directory structure should look like this:
+If you want to create your own datasets, please refer to this [tutorial](https://blog.csdn.net/qq_45913887/article/details/132731884). Note that the [LLFF](https://github.com/Fyusion/LLFF.git) repository is required, and is already included in the `NeRF/` directory.
+
+### Model Training
+
+Run the following commands to train NeRF:
+
+```cmd
+$ python run_nerf.py --config configs/kipling.txt
+$ python run_nerf.py --config configs/steamedbuns.txt
+```
+
+### Evaluation
+
+First download [Final/NeRF/{kipling|steamedbuns}](https://pan.baidu.com/s/1mjC8PhPnaIVdDaCg3XPOmQ?pwd=cctv) to the `NeRF/logs` directory.
+
+Then run the following command to render videos with the trained model:
+
+```cmd
+$ python run_nerf.py --config configs/kipling.txt --render_only
+$ python run_nerf.py --config configs/steamedbuns.txt --render_only
+```
+
+### Visualization
+
+Run the following command to start the TensorBoard:
+
+```cmd
+tensorboard --logdir ./logs/summaries/
+```
+
+Then open the browser and go to `http://localhost:6006/`.
