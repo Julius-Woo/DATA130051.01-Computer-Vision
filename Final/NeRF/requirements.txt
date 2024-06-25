@@ -1,0 +1,8 @@
+ConfigArgParse==1.7
+imageio==2.34.1
+matplotlib==3.7.2
+numpy==1.23.5
+opencv_python==4.9.0.80
+Pillow==10.3.0
+torch==2.2.1
+tqdm==4.65.2
