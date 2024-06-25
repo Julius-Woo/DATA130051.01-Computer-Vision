@@ -1,6 +1,8 @@
 <h1 align="center">DATA130051.01 Final Project</h1>
 <h3 align="center"> Wu Jia'ao  21307130203 </h3>
 
+## Contents
+- [Contents](#contents)
 - [Requirements](#requirements)
 - [Task 1: Self-supervised and Supervised Learning on Image Classification](#task-1-self-supervised-and-supervised-learning-on-image-classification)
   - [Data Preparation](#data-preparation)
@@ -18,7 +20,7 @@
   - [Evaluation](#evaluation-2)
   - [Visualization](#visualization-2)
 
-
+***
 
 ## Requirements
 

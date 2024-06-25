@@ -1,6 +1,8 @@
 <h1 align="center">DATA130051.01 Midterm Project</h1>
 <h3 align="center"> Wu Jia'ao  21307130203 </h3>
 
+## Contents
+- [Contents](#contents)
 - [Requirements](#requirements)
 - [Task 1: Fine-tuning ResNet18 on CUB-200-2011](#task-1-fine-tuning-resnet18-on-cub-200-2011)
   - [Data Preparation](#data-preparation)
@@ -15,6 +17,7 @@
   - [Visualization](#visualization-1)
 - [Directory Structure](#directory-structure)
 
+***
 
 ## Requirements
 This project requires Python >= 3.8. See the requirements.txt file for the required packages. You can install them using the following command:
